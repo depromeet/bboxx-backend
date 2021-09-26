@@ -1,0 +1,51 @@
+name: Build and Test
+
+env:
+  java-version: 11
+  distribute: adopt
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  lint-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out branch
+      uses: actions/checkout@v2
+
+    - name: Set up JDK and use cache
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ env.java-version }}
+        distribution: ${{ env.distribute }}
+        cache: gradle
+
+    - name: Validate Gradle wrapper
+      uses: gradle/wrapper-validation-action@v1
+
+    - name: Grant execute permission for
+      run: chmod +x gradlew
+
+  build:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Check out branch
+        uses: actions/checkout@v2
+
+      - name: Set up JDK and use cache
+        uses: actions/setup-java@v2
+        with:
+            java-version: ${{ env.java-version }}
+            distribution: ${{ env.distribute }}
+            cache: gradle
+
+      - name: Grant execute permission for
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test
