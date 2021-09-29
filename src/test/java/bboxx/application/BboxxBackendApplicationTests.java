@@ -1,4 +1,4 @@
-package bboxx.api;
+package bboxx.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

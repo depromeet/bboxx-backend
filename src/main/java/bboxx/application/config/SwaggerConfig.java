@@ -1,4 +1,4 @@
-package bboxx.api.config;
+package bboxx.application.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

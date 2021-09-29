@@ -1,4 +1,4 @@
-package bboxx.api.controller;
+package bboxx.application.controller;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
