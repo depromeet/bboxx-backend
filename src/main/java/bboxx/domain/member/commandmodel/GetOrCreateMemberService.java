@@ -18,7 +18,7 @@ public class GetOrCreateMemberService {
 
     public Member execute(SocialProvider socialProvider) {
         Optional<Member> existedMember = this.memberRepository
-                .findByProviderProviderIdAndProviderProviderType(socialProvider.getProviderId(), socialProvider.getProviderType());
+                .findByProviderIdAndProviderType(socialProvider.getProviderId(), socialProvider.getProviderType());
         if (existedMember.isPresent()) {
             return existedMember.get();
         }

@@ -45,7 +45,7 @@ public class FakeMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findByProviderProviderIdAndProviderProviderType(String providerId, SocialProviderType providerType) {
+    public Optional<Member> findByProviderIdAndProviderType(String providerId, SocialProviderType providerType) {
         return members.stream()
                 .filter(member -> providerId.equals(member.getProviderId()))
                 .filter(member -> providerType.equals(member.getProviderType()))
