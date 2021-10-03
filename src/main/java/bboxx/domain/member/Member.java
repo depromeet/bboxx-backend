@@ -6,7 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity
@@ -21,6 +20,13 @@ public class Member extends BaseTimeEntity {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "member")
     private SocialProvider provider;
+
+    public Member(Long id, String nickname, SocialProvider provider) {
+        this.id = id;
+        this.nickname = nickname;
+        this.provider = provider;
+        this.provider.setMember(this);
+    }
 
     public Member(String nickname, SocialProvider provider) {
         this.nickname = nickname;

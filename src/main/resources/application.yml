@@ -1,0 +1,20 @@
+spring:
+#  profiles:
+#    active: local
+  datasource:
+    url: jdbc:h2:mem:bboxx
+    username: admin
+    password: 1234
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+
+# custom
+bboxx:
+  jwt:
+    secret: ugYLSWEaK4CEFF9sQEE0RZy345nlTYv8Gawxbc9vAHgUjlhruX2LSfxiLyeRqjn73J4
