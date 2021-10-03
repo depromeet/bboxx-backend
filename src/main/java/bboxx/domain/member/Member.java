@@ -1,27 +1,42 @@
 package bboxx.domain.member;
 
+import bboxx.domain.BaseTimeEntity;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import javax.persistence.*;
 
 @Getter
-public class Member {
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
+public class Member extends BaseTimeEntity {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column
     private String nickname;
 
-    private SocialProvider socialProvider;
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "member")
+    private SocialProvider provider;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-    public Member(String id, String nickname, SocialProvider socialProvider, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
+    public Member(String nickname, SocialProvider provider) {
         this.nickname = nickname;
-        this.socialProvider = socialProvider;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.provider = provider;
+        this.provider.setMember(this);
+    }
+
+    public String getProviderId() {
+        return this.provider.getProviderId();
+    }
+
+    public SocialProviderType getProviderType() {
+        return this.provider.getProviderType();
     }
 }
