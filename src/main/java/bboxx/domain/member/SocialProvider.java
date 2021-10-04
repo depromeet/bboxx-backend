@@ -1,16 +1,14 @@
 package bboxx.domain.member;
 
 import bboxx.domain.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Entity
 public class SocialProvider extends BaseTimeEntity {
 
@@ -25,6 +23,21 @@ public class SocialProvider extends BaseTimeEntity {
     @Column
     private String providerId;
 
+    @Column
+    private String nickname;
+
+    @Column
+    private String email;
+
+    @Column
+    private String gender;
+
+    @Column
+    private String ageRange;
+
+    @Column
+    private String profileImage;
+
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -37,5 +50,11 @@ public class SocialProvider extends BaseTimeEntity {
     public SocialProvider(SocialProviderType socialProviderType, String providerId) {
         this.providerType = socialProviderType;
         this.providerId = providerId;
+    }
+
+    public SocialProvider(SocialProviderType providerType, String providerId, Member member) {
+        this.providerType = providerType;
+        this.providerId = providerId;
+        this.member = member;
     }
 }

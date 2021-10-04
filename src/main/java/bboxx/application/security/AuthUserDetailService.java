@@ -22,14 +22,8 @@ public class AuthUserDetailService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // 현재는 password 방식을 사용하지 않으므로 따로 거치지 않도록 한다.
-//        return new AuthUserDetail(Long.parseLong(username), new HashSet<>());
-        return this.loadById(Long.parseLong(username));
-    }
-
-    public UserDetails loadById(Long id) throws UsernameNotFoundException {
-        Member member = this.memberRepository.findById(id)
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        Member member = this.memberRepository.findById(Long.parseLong(id))
                 .orElseThrow(() -> new UsernameNotFoundException("unauthorized error"));
 
         // user 세팅

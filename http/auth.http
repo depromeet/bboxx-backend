@@ -4,8 +4,18 @@ Content-Type: application/json
 
 {
   "providerType": "KAKAO",
-  "authData": "eE5K7PA1Cs81111w8SqA711nom6bs6QVJ43JSgo9dVoAAAF7DDIkaA"
+  "authData": "5-3J4zJyv-Q691j_WSfG4suwYyDrVZK18apjggorDR4AAAF8Slz2Aw"
 }
+
+### Signin with Google
+POST http://localhost:8080/api/auth/signin
+Content-Type: application/json
+
+{
+  "providerType": "GOOGLE",
+  "authData": "google token"
+}
+
 
 
 ### Validate jwt

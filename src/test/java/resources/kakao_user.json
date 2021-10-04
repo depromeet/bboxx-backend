@@ -1,0 +1,32 @@
+{
+  "id": 111222333444111,
+  "properties": {
+    "nickname": "bboxxibal",
+    "profile_image": "https://cphoto.asiae.co.kr/listimglink/6/2020073121065691802_1596197216.jpeg",
+    "thumbnail_image": "https://cphoto.asiae.co.kr/listimglink/6/2020073121065691802_1596197216.jpeg"
+  },
+  "kakao_account": {
+    "profile_needs_agreement": false,
+    "profile": {
+      "nickname": "bboxxibal",
+      "thumbnail_image_url": "https://img.hankyung.com/photo/202107/BF.26916641.1.jpg",
+      "profile_image_url": "https://img.hankyung.com/photo/202107/BF.26916641.1.jpg",
+      "is_default_image": false
+    },
+    "has_email": true,
+    "email_needs_agreement": false,
+    "is_email_valid": true,
+    "is_email_verified": true,
+    "email": "bboxxibal@box.com",
+    "has_age_range": true,
+    "age_range_needs_agreement": false,
+    "age_range": "20~29",
+    "has_birthday": true,
+    "birthday_needs_agreement": false,
+    "birthday": "0901",
+    "birthday_type": "SOLAR",
+    "has_gender": true,
+    "gender_needs_agreement": false,
+    "gender": "male"
+  }
+}

@@ -32,7 +32,7 @@ public class JpaMemberRepositoryTest {
             String providerId = "1234abc";
             SocialProviderType providerType = SocialProviderType.GOOGLE;
             Member member = new Member(11L, "bboxxibal", new SocialProvider(providerType, providerId));
-            memberRepository.save(member);
+            memberRepository.saveAndFlush(member);
 
             // when
             Optional<Member> result = memberRepository.findByProviderIdAndProviderType(providerId, providerType);
@@ -49,7 +49,7 @@ public class JpaMemberRepositoryTest {
             String providerId = "1234abc";
             SocialProviderType providerType = SocialProviderType.GOOGLE;
             Member member = new Member(11L, "bboxxibal", new SocialProvider(providerType, providerId));
-            memberRepository.save(member);
+            memberRepository.saveAndFlush(member);
 
             // when
             Optional<Member> result = memberRepository.findByProviderIdAndProviderType(providerId+"123", providerType);
