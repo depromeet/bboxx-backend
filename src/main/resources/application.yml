@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:h2:mem:bboxx
+    username: admin
+    password: 1234
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+# custom
+bboxx:
+  apple:
+    issuer: aaaaa
+    client-id: 11111111
+  google:
+    client-id: 302964666529-j9rfs75uevv86oepsfp5mvvq0h21mcga.apps.googleusercontent.com
+  jwt:
+    secret: ugYLSWEaK4CEFF9sQEE0RZy345nlTYv8Gawxbc9vAHgUjlhruX2LSfxiLyeRqjn73J4

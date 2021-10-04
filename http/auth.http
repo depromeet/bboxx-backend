@@ -1,0 +1,24 @@
+### Signin with kakao
+POST http://localhost:8080/api/auth/signin
+Content-Type: application/json
+
+{
+  "providerType": "KAKAO",
+  "authData": "5-3J4zJyv-Q691j_WSfG4suwYyDrVZK18apjggorDR4AAAF8Slz2Aw"
+}
+
+### Signin with Google
+POST http://localhost:8080/api/auth/signin
+Content-Type: application/json
+
+{
+  "providerType": "GOOGLE",
+  "authData": "google token"
+}
+
+
+
+### Validate jwt
+GET http://localhost:8080/api/auth/validate-jwt/aa
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6InBpa2FjaHUiLCJpZCI6IjEiLCJzdWIiOiIxIiwiaWF0IjoxNjMzMjcwNjE0LCJleHAiOjE2MzM4NzU0MTR9.oQ-t7YG0IlX8AiANdvzKFvf6pMWKo4i6zdQtBgE-QHs
