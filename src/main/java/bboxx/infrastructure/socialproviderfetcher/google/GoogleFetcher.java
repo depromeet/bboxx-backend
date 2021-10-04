@@ -10,6 +10,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.util.Collections;
 
 @RequiredArgsConstructor
 @Component(value = "google_fetcher")
+@Slf4j
 public class GoogleFetcher implements ProviderUserFetcher {
 
     @Value("${bboxx.google.client-id}")
@@ -43,7 +45,7 @@ public class GoogleFetcher implements ProviderUserFetcher {
         }
 
         if (idToken == null) {
-            System.out.println("invalid id token");
+            log.error("Invalid id token, id: {}", authData);
             throw new DomainException(DomainErrorCode.UNAUTHORIZED_ERROR);
         }
 

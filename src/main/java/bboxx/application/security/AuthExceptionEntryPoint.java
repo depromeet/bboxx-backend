@@ -4,6 +4,7 @@ import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.domain.exception.DomainErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -15,6 +16,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
 
     private final ObjectMapper objectMapper;
@@ -24,7 +26,7 @@ public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
                          HttpServletResponse httpServletResponse,
                          AuthenticationException e) throws IOException {
 
-        System.out.println(e.getMessage());
+        log.error(e.getMessage(), e);
 
         ApiResponse<Object> unauthorizedResponse = ApiResponse.failure(DomainErrorCode.UNAUTHORIZED_ERROR);
         String jsonLoginResponse = objectMapper.writeValueAsString(unauthorizedResponse);
