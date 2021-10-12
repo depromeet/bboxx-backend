@@ -23,8 +23,11 @@ public class AuthUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Member member = this.memberRepository.findById(Long.parseLong(id))
-                .orElseThrow(() -> new UsernameNotFoundException("unauthorized error"));
+        if (!id.matches("[0-9]+")) {
+            throw new UsernameNotFoundException("id type must be long, id: " + id);
+        }
+        Member member = memberRepository.findById(Long.parseLong(id))
+                .orElseThrow(() -> new UsernameNotFoundException("unauthorized error, unexpected id: " + id));
 
         // user 세팅
         Set<GrantedAuthority> authorities = new HashSet<>();
