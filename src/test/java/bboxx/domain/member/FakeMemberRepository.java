@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class FakeMemberRepository implements MemberRepository {
 
-    List<Member> members = new ArrayList<>();
+    public List<Member> members = new ArrayList<>();
 
     @Override
     public Member save(Member member) {
