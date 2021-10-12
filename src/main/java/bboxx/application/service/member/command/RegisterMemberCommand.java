@@ -6,7 +6,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class SignInCommand {
+public class RegisterMemberCommand {
     private SocialProviderType providerType;
     private String authData;
+    private String nickname;
 }
