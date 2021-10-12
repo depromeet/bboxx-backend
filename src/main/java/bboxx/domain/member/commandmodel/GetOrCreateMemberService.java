@@ -9,11 +9,9 @@ import java.util.Optional;
 public class GetOrCreateMemberService {
 
     private final MemberRepository memberRepository;
-    private final NicknameGenerator nicknameGenerator;
 
-    public GetOrCreateMemberService(MemberRepository memberRepository, NicknameGenerator nicknameGenerator) {
+    public GetOrCreateMemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.nicknameGenerator = nicknameGenerator;
     }
 
     public Member execute(SocialProvider socialProvider) {
@@ -22,7 +20,7 @@ public class GetOrCreateMemberService {
         if (existedMember.isPresent()) {
             return existedMember.get();
         }
-        Member newMember = new Member(this.nicknameGenerator.generate(), socialProvider);
+        Member newMember = new Member(MemberState.CREATED, socialProvider);
         return memberRepository.save(newMember);
     }
 }

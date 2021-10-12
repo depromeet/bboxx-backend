@@ -1,6 +1,7 @@
 package bboxx.infrastructure.repository;
 
 import bboxx.domain.member.Member;
+import bboxx.domain.member.MemberState;
 import bboxx.domain.member.SocialProvider;
 import bboxx.domain.member.SocialProviderType;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +32,7 @@ public class JpaMemberRepositoryTest {
             // given
             String providerId = "1234abc";
             SocialProviderType providerType = SocialProviderType.GOOGLE;
-            Member member = new Member(11L, "bboxxibal", new SocialProvider(providerType, providerId));
+            Member member = new Member(11L, "bboxxibal", MemberState.ACTIVE, new SocialProvider(providerType, providerId));
             memberRepository.saveAndFlush(member);
 
             // when
@@ -48,7 +49,7 @@ public class JpaMemberRepositoryTest {
             // given
             String providerId = "1234abc";
             SocialProviderType providerType = SocialProviderType.GOOGLE;
-            Member member = new Member(11L, "bboxxibal", new SocialProvider(providerType, providerId));
+            Member member = new Member(11L, "bboxxibal", MemberState.ACTIVE, new SocialProvider(providerType, providerId));
             memberRepository.saveAndFlush(member);
 
             // when

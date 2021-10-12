@@ -19,8 +19,7 @@ public class GetOrCreateMemberServiceTest {
     public void 유저가_존재하지_않는다면_유저_생성_후_회원정보를_반환한다() {
         // given
         MemberRepository memberRepository = new FakeMemberRepository();
-        NicknameGenerator nicknameGenerator = new RandomNicknameGenerator();
-        GetOrCreateMemberService getOrCreateMemberService = new GetOrCreateMemberService(memberRepository, nicknameGenerator);
+        GetOrCreateMemberService getOrCreateMemberService = new GetOrCreateMemberService(memberRepository);
         SocialProvider provider = new SocialProvider(SocialProviderType.KAKAO, "12343335");
 
         // when
@@ -29,17 +28,17 @@ public class GetOrCreateMemberServiceTest {
         // then
         assertThat(memberRepository.findById(result.getId())).isPresent();
         assertThat(result.getProviderId()).isEqualTo((provider.getProviderId()));
+        assertThat(result.getState()).isEqualTo((MemberState.CREATED));
     }
 
     @Test
     public void 유저가_존재한다면_존재하는_회원정보를_반환한다() {
         // given
         FakeMemberRepository memberRepository = new FakeMemberRepository();
-        NicknameGenerator nicknameGenerator = new RandomNicknameGenerator();
-        GetOrCreateMemberService getOrCreateMemberService = new GetOrCreateMemberService(memberRepository, nicknameGenerator);
+        GetOrCreateMemberService getOrCreateMemberService = new GetOrCreateMemberService(memberRepository);
         SocialProvider provider = new SocialProvider(SocialProviderType.KAKAO, "12343335");
 
-        Member existedMember = new Member(nicknameGenerator.generate(), provider);
+        Member existedMember = new Member(12L, "nicknames", MemberState.ACTIVE, provider);
         memberRepository.members.add(existedMember);
 
         // when

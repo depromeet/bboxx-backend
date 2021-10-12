@@ -1,10 +1,6 @@
 package bboxx.application.security;
 
-import bboxx.domain.exception.DomainException;
-import bboxx.domain.member.FakeMemberRepository;
-import bboxx.domain.member.Member;
-import bboxx.domain.member.SocialProvider;
-import bboxx.domain.member.SocialProviderType;
+import bboxx.domain.member.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +24,7 @@ public class AuthUserDetailServiceTest {
         SocialProvider provider = new SocialProvider(SocialProviderType.KAKAO, "12343335");
 
         long id = 12;
-        Member existedMember = new Member(id, "nickname", provider);
+        Member existedMember = new Member(id, "nickname", MemberState.ACTIVE, provider);
         memberRepository.members.add(existedMember);
 
         // when

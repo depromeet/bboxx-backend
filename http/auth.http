@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "providerType": "KAKAO",
-  "authData": "5-3J4zJyv-Q691j_WSfG4suwYyDrVZK18apjggorDR4AAAF8Slz2Aw"
+  "authData": "CaCzsPLEuQrYgcPxbmfO90pBXpNAF--Y5i4xkgo9dRsAAAF8dR67fA"
 }
 
 ### Signin with Google
