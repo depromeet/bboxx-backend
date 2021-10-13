@@ -1,5 +1,5 @@
 ### SignIn with kakao
-POST http://localhost:8080/api/auth/signin
+POST http://localhost:8080/api/v1/auth/signin
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ### SignIn with Google
-POST http://localhost:8080/api/auth/signin
+POST http://localhost:8080/api/v1/auth/signin
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### SignUp with kakao
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/v1/auth/signup
 Content-Type: application/json
 
 {
@@ -29,6 +29,6 @@ Content-Type: application/json
 
 
 ### Validate jwt
-GET http://localhost:8080/api/auth/validate-jwt/aa
+GET http://localhost:8080/api/v1/auth/validate-jwt/aa
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6InBpa2FjaHUiLCJpZCI6IjEiLCJzdWIiOiIxIiwiaWF0IjoxNjMzMjcwNjE0LCJleHAiOjE2MzM4NzU0MTR9.oQ-t7YG0IlX8AiANdvzKFvf6pMWKo4i6zdQtBgE-QHs
