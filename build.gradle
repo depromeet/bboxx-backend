@@ -55,3 +55,7 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+tasks.jar {
+    enabled = false
+}
