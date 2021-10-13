@@ -1,7 +1,7 @@
 package bboxx.application.controller;
 
 import bboxx.application.controller.dto.response.ApiResponse;
-import bboxx.application.service.member.MemberService;
+import bboxx.application.service.member.MemberCommandService;
 import bboxx.application.service.member.command.SignInCommand;
 import bboxx.application.service.member.command.SignInCommandResult;
 import bboxx.application.service.member.command.SignUpCommand;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    private final MemberService memberService;
+    private final MemberCommandService memberService;
     private final JwtProvider jwtProvider;
 
-    public AuthController(MemberService memberService, JwtProvider jwtProvider) {
-        this.memberService = memberService;
+    public AuthController(MemberCommandService memberCommandService, JwtProvider jwtProvider) {
+        this.memberService = memberCommandService;
         this.jwtProvider = jwtProvider;
     }
 

@@ -1,5 +1,7 @@
 package bboxx.application.security;
 
+import bboxx.domain.exception.DomainErrorCode;
+import bboxx.domain.exception.DomainException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -54,5 +56,11 @@ public class AuthUserDetail implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void validateSameUser(Long id) {
+        if (!id.equals(this.id)) {
+            throw new DomainException(DomainErrorCode.UNAUTHORIZED_ERROR);
+        }
     }
 }

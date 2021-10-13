@@ -4,6 +4,7 @@ import bboxx.domain.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -52,5 +53,13 @@ public class Member extends BaseTimeEntity {
 
     public SocialProviderType getProviderType() {
         return this.provider.getProviderType();
+    }
+
+    public void updateInfo(String nickname) {
+        Optional.of(nickname).ifPresent(this::changeNickname);
+    }
+
+    public void changeNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
