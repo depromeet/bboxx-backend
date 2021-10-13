@@ -3,7 +3,7 @@ package bboxx.infrastructure.repository;
 import bboxx.domain.member.Member;
 import bboxx.domain.member.SocialProviderType;
 import bboxx.domain.member.commandmodel.MemberRepository;
-import bboxx.domain.member.readmodel.MemberReader;
+import bboxx.domain.member.querymodel.MemberReader;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
