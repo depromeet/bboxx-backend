@@ -1,10 +1,10 @@
 package bboxx.application.service.member;
 
-import bboxx.application.service.member.query.GetMemberOneQuery;
+import bboxx.domain.member.query.GetMemberOneQuery;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
-import bboxx.domain.member.readmodel.MemberReader;
-import bboxx.domain.member.readmodel.MemberView;
+import bboxx.domain.member.querymodel.MemberReader;
+import bboxx.domain.member.querymodel.MemberView;
 import org.springframework.stereotype.Service;
 
 @Service

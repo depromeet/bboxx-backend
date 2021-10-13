@@ -1,6 +1,6 @@
 package bboxx.application.service.member;
 
-import bboxx.application.service.member.command.*;
+import bboxx.domain.member.command.*;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
 import bboxx.domain.member.Member;

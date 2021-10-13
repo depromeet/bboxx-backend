@@ -2,10 +2,10 @@ package bboxx.application.controller;
 
 import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.application.service.member.MemberCommandService;
-import bboxx.application.service.member.command.SignInCommand;
-import bboxx.application.service.member.command.SignInCommandResult;
-import bboxx.application.service.member.command.SignUpCommand;
-import bboxx.application.service.member.command.SignUpCommandResult;
+import bboxx.domain.member.command.SignInCommand;
+import bboxx.domain.member.command.SignInCommandResult;
+import bboxx.domain.member.command.SignUpCommand;
+import bboxx.domain.member.command.SignUpCommandResult;
 import bboxx.infrastructure.jwt.JwtProvider;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

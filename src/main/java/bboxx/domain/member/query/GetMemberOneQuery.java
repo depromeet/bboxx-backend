@@ -1,4 +1,4 @@
-package bboxx.application.service.member.query;
+package bboxx.domain.member.query;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

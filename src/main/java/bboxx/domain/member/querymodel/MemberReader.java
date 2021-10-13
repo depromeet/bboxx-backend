@@ -1,4 +1,4 @@
-package bboxx.domain.member.readmodel;
+package bboxx.domain.member.querymodel;
 
 import bboxx.domain.member.Member;
 

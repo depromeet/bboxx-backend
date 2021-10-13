@@ -1,8 +1,8 @@
 package bboxx.application.service;
 
 import bboxx.application.service.member.MemberCommandService;
-import bboxx.application.service.member.command.SignInCommand;
-import bboxx.application.service.member.command.SignInCommandResult;
+import bboxx.domain.member.command.SignInCommand;
+import bboxx.domain.member.command.SignInCommandResult;
 import bboxx.domain.member.*;
 import bboxx.domain.member.commandmodel.MemberCreator;
 import bboxx.domain.member.commandmodel.ProviderUserFetcher;
@@ -31,7 +31,7 @@ public class MemberCommandServiceTest {
     @Nested
     class signIn {
         @Test
-        public void 유저가_존재한다면_SignInCommandResult_에_jwt_가_반환된다() {
+        public void 유저가_존재한다면_SignInCommandResult_에_토큰_이_반환된다() {
             // given
             SocialProvider provider = new SocialProvider(SocialProviderType.KAKAO, "12343335");
             given(providerUserFetcher.fetch(any(), any()))
