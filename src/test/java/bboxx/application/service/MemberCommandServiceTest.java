@@ -1,6 +1,6 @@
 package bboxx.application.service;
 
-import bboxx.application.service.member.MemberService;
+import bboxx.application.service.member.MemberCommandService;
 import bboxx.application.service.member.command.SignInCommand;
 import bboxx.application.service.member.command.SignInCommandResult;
 import bboxx.domain.member.*;
@@ -20,7 +20,7 @@ import static org.mockito.BDDMockito.given;
 
 @DisplayName("MemberService")
 @ExtendWith(MockitoExtension.class)
-public class MemberServiceTest {
+public class MemberCommandServiceTest {
 
     @Mock
     private ProviderUserFetcher providerUserFetcher;
@@ -40,7 +40,7 @@ public class MemberServiceTest {
                     .willReturn("token1234556677");
 
             FakeMemberRepository memberRepository = new FakeMemberRepository();
-            MemberService memberService = new MemberService(providerUserFetcher, memberRepository, new MemberCreator(memberRepository), tokenGenerator);
+            MemberCommandService memberCommandService = new MemberCommandService(providerUserFetcher, memberRepository, new MemberCreator(memberRepository), tokenGenerator);
 
 
             Member existedMember = new Member(111L, "nickname", MemberState.ACTIVE, provider);
@@ -49,7 +49,7 @@ public class MemberServiceTest {
             SignInCommand command = new SignInCommand(provider.getProviderType(), "authData");
 
             // when
-            SignInCommandResult result = memberService.signIn(command);
+            SignInCommandResult result = memberCommandService.signIn(command);
 
             // then
             assertThat(result.getToken()).isNotNull();
@@ -63,12 +63,12 @@ public class MemberServiceTest {
                     .willReturn(provider);
 
             FakeMemberRepository memberRepository = new FakeMemberRepository();
-            MemberService memberService = new MemberService(providerUserFetcher, memberRepository, new MemberCreator(memberRepository), tokenGenerator);
+            MemberCommandService memberCommandService = new MemberCommandService(providerUserFetcher, memberRepository, new MemberCreator(memberRepository), tokenGenerator);
 
             SignInCommand command = new SignInCommand(provider.getProviderType(), "authData");
 
             // when
-            SignInCommandResult result = memberService.signIn(command);
+            SignInCommandResult result = memberCommandService.signIn(command);
 
             // then
             assertThat(result.getToken()).isNull();
