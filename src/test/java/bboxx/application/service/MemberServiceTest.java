@@ -4,8 +4,9 @@ import bboxx.application.service.member.MemberService;
 import bboxx.application.service.member.command.SignInCommand;
 import bboxx.application.service.member.command.SignInCommandResult;
 import bboxx.domain.member.*;
+import bboxx.domain.member.commandmodel.MemberCreator;
 import bboxx.domain.member.commandmodel.ProviderUserFetcher;
-import bboxx.infrastructure.jwt.JwtProvider;
+import bboxx.domain.member.commandmodel.TokenGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,9 @@ public class MemberServiceTest {
     @Mock
     private ProviderUserFetcher providerUserFetcher;
 
+    @Mock
+    private TokenGenerator tokenGenerator;
+
     @Nested
     class signIn {
         @Test
@@ -32,9 +36,11 @@ public class MemberServiceTest {
             SocialProvider provider = new SocialProvider(SocialProviderType.KAKAO, "12343335");
             given(providerUserFetcher.fetch(any(), any()))
                     .willReturn(provider);
+            given(tokenGenerator.generateToken(any(), any()))
+                    .willReturn("token1234556677");
 
             FakeMemberRepository memberRepository = new FakeMemberRepository();
-            MemberService memberService = new MemberService(providerUserFetcher, memberRepository, new JwtProvider("ltDuCltDuCHi32136qoIV4Y1rElto1KYoEyBpvuRHi36qoIV4Y1rElto1KYoEyBpvuR"));
+            MemberService memberService = new MemberService(providerUserFetcher, memberRepository, new MemberCreator(memberRepository), tokenGenerator);
 
 
             Member existedMember = new Member(111L, "nickname", MemberState.ACTIVE, provider);
@@ -46,7 +52,7 @@ public class MemberServiceTest {
             SignInCommandResult result = memberService.signIn(command);
 
             // then
-            assertThat(result.getJwt()).isNotNull();
+            assertThat(result.getToken()).isNotNull();
         }
 
         @Test
@@ -57,7 +63,7 @@ public class MemberServiceTest {
                     .willReturn(provider);
 
             FakeMemberRepository memberRepository = new FakeMemberRepository();
-            MemberService memberService = new MemberService(providerUserFetcher, memberRepository, new JwtProvider("ltDuCltDuCHi32136qoIV4Y1rElto1KYoEyBpvuRHi36qoIV4Y1rElto1KYoEyBpvuR"));
+            MemberService memberService = new MemberService(providerUserFetcher, memberRepository, new MemberCreator(memberRepository), tokenGenerator);
 
             SignInCommand command = new SignInCommand(provider.getProviderType(), "authData");
 
@@ -65,7 +71,7 @@ public class MemberServiceTest {
             SignInCommandResult result = memberService.signIn(command);
 
             // then
-            assertThat(result.getJwt()).isNull();
+            assertThat(result.getToken()).isNull();
         }
     }
 }

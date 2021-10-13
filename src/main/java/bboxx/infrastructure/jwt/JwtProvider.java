@@ -1,6 +1,6 @@
 package bboxx.infrastructure.jwt;
 
-import bboxx.domain.member.Member;
+import bboxx.domain.member.commandmodel.TokenGenerator;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,7 +19,7 @@ import java.util.Map;
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
-public class JwtProvider {
+public class JwtProvider implements TokenGenerator {
 
     @Value("${bboxx.jwt.secret}")
     private String secretKey;

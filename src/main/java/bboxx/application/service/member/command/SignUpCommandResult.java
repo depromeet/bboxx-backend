@@ -5,10 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class SignInCommandResult {
+public class SignUpCommandResult {
     private String token;
-
-    public SignInCommandResult() {
-
-    }
 }

@@ -4,6 +4,8 @@ import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.application.service.member.MemberService;
 import bboxx.application.service.member.command.SignInCommand;
 import bboxx.application.service.member.command.SignInCommandResult;
+import bboxx.application.service.member.command.SignUpCommand;
+import bboxx.application.service.member.command.SignUpCommandResult;
 import bboxx.infrastructure.jwt.JwtProvider;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,11 +30,11 @@ public class AuthController {
         return ApiResponse.success(memberService.signIn(command));
     }
 
-//    @ApiOperation(value = "유저 등록 요청")
-//    @PostMapping("/register")
-//    public ApiResponse<SignInCommandResult> signIn(@RequestBody SignInCommand command) {
-//        return ApiResponse.success(memberService.signIn(command));
-//    }
+    @ApiOperation(value = "유저 등록 요청")
+    @PostMapping("/signup")
+    public ApiResponse<SignUpCommandResult> signUp(@RequestBody SignUpCommand command) {
+        return ApiResponse.success(memberService.signUp(command));
+    }
 
     @ApiOperation(value = "jwt 테스트 api")
     @GetMapping("/validate-jwt/{jwt}")
