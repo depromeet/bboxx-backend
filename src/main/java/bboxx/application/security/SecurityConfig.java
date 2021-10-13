@@ -48,9 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers("/h2-console/**").permitAll() // h2 console
-                .antMatchers("/api/auth/signin", "/api/auth/signup").permitAll()
+                .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/api/v1/auth/validate-jwt/**").permitAll()
+                .antMatchers("/api/v1/generate-member-nickname").permitAll()
 //                .antMatchers("/api/auth/validate-jwt/**").hasAnyRole("USER") // -> USER_ROLE 설정됨
-                .antMatchers("/api/auth/validate-jwt/**").permitAll()
 //                .anyRequest().permitAll().and() // 임시로 모든 요청을 허용
                 .anyRequest().authenticated().and() // 해당 요청을 인증된 사용자만 사용 가능
                 .headers()

@@ -1,0 +1,6 @@
+### Generate nickname
+POST http://localhost:8080/api/v1/generate-member-nickname
+Content-Type: application/json
+
+{
+}
