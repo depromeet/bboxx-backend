@@ -15,6 +15,17 @@ public class DomainException extends RuntimeException {
         super(errorCode.getMessage());
         this.errorCode = errorCode;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof DomainException)) {
+            return false;
+        }
+        return this.errorCode.getCode().equals(((DomainException) obj).errorCode.getCode());
+    }
 }
 
 
