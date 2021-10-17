@@ -1,6 +1,7 @@
 package bboxx.domain.notification;
 
 import bboxx.domain.BaseTimeEntity;
+import bboxx.domain.notification.commandmodel.NotificationTranslator;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -44,13 +46,11 @@ public class Notification extends BaseTimeEntity {
         this.state = state;
     }
 
-    public Notification(Long receiverId, Long emotionId, NotificationState state) {
+    public Notification(Long receiverId, Long emotionId, String title, String message, NotificationState state) {
         this.receiverId = receiverId;
         this.emotionId = emotionId;
+        this.title = title;
+        this.message = message;
         this.state = state;
-    }
-
-    public void translateMessages(String nickname, LocalDateTime emotionCreatedTime) {
-        String title = nickname + "!! ";
     }
 }

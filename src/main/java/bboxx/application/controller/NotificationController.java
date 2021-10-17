@@ -6,10 +6,11 @@ import bboxx.application.security.AuthUserDetail;
 import bboxx.application.service.notification.DeregisterPushTokenCommandHandler;
 import bboxx.application.service.notification.GetPushTokenOneQueryHandler;
 import bboxx.application.service.notification.RegisterPushTokenCommandHandler;
+import bboxx.application.service.notification.SendNotificationCommandHandler;
 import bboxx.domain.notification.PushToken;
 import bboxx.domain.notification.command.DeregisterPushTokenCommand;
 import bboxx.domain.notification.command.RegisterPushTokenCommand;
-import bboxx.domain.notification.commandmodel.PushNotifier;
+import bboxx.domain.notification.command.SendNotificationCommand;
 import bboxx.domain.notification.query.GetPushTokenOneQuery;
 import bboxx.domain.notification.querymodel.PushTokenView;
 import io.swagger.annotations.Api;
@@ -29,12 +30,13 @@ public class NotificationController {
     private final RegisterPushTokenCommandHandler registerPushTokenCommandHandler;
     private final DeregisterPushTokenCommandHandler deregisterPushTokenCommandHandler;
     private final GetPushTokenOneQueryHandler getPushTokenOneQueryHandler;
+    private final SendNotificationCommandHandler sendNotificationCommandHandler;
 
     @ApiOperation(value = "push 토큰을 등록한다")
     @PostMapping("/register-push-token")
     public ApiResponse<PushToken> registerPushToken(@RequestBody RegisterPushTokenCommand command,
-                                                    @AuthenticationPrincipal AuthUserDetail userDetail
-    ) {
+                                                    @AuthenticationPrincipal AuthUserDetail userDetail) {
+
         log.info("registerPushToken request, authId: {}, ownerId: {}", userDetail.getId(), command.getOwnerId());
         userDetail.validateSameUser(command.getOwnerId());
         return ApiResponse.success(registerPushTokenCommandHandler.handle(command));
@@ -43,8 +45,8 @@ public class NotificationController {
     @ApiOperation(value = "push 토큰을 등록 해제한다.")
     @PostMapping("/deregister-push-token")
     public ApiResponse<PushToken> deregisterPushToken(@RequestBody DeregisterPushTokenCommand command,
-                                                      @AuthenticationPrincipal AuthUserDetail userDetail
-    ) {
+                                                      @AuthenticationPrincipal AuthUserDetail userDetail) {
+
         log.info("deregisterPushToken request, authId: {}, ownerId: {}", userDetail.getId(), command.getOwnerId());
         userDetail.validateSameUser(command.getOwnerId());
         return ApiResponse.success(deregisterPushTokenCommandHandler.handle(command));
@@ -52,8 +54,7 @@ public class NotificationController {
 
     @ApiOperation(value = "여러 노티를 전송한다.")
     @PostMapping("/send-batch-notification")
-    public ApiResponse<EmptyJsonResponse> sendBatchNotification(
-    ) {
+    public ApiResponse<EmptyJsonResponse> sendBatchNotification() {
 //        log.info("registerPushToken request, authId: {}, ownerId: {}", userDetail.getId(), command.getOwnerId());
 //        userDetail.validateSameUser(command.getOwnerId());
         return ApiResponse.success();
@@ -61,9 +62,11 @@ public class NotificationController {
 
     @ApiOperation(value = "특정 감정일기에 대한 노티를 전송한다.")
     @PostMapping("/send-notification")
-    public ApiResponse<EmptyJsonResponse> sendNotification(
-    ) {
+    public ApiResponse<EmptyJsonResponse> sendNotification(@RequestBody SendNotificationCommand command,
+                                                          @AuthenticationPrincipal AuthUserDetail userDetail) {
 
+        userDetail.validateSameUser(command.getReceiverId());
+        sendNotificationCommandHandler.handle(command);
         return ApiResponse.success();
     }
 

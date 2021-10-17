@@ -28,5 +28,6 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzNDExMjkzMSwiZXhwIjoxNjM0NzE3NzMxfQ.Y0-cOEJ2fkjZst5cDpx169l-6xpF5N3Gi6OcsetSFNA
 
 {
-
+  "receiverId": 1,
+  "emotionId": 1
 }
