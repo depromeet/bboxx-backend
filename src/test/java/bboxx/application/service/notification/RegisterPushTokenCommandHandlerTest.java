@@ -26,7 +26,7 @@ import static org.mockito.BDDMockito.given;
 public class RegisterPushTokenCommandHandlerTest {
 
     @Mock
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     @Test
     public void push_token_이_존재하지_않는다면_token_값과_함께_push_token_을_생성한다() {

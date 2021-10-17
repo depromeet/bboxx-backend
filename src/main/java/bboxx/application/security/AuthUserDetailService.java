@@ -1,7 +1,7 @@
 package bboxx.application.security;
 
-import bboxx.domain.member.Member;
 import bboxx.domain.member.commandmodel.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class AuthUserDetailService implements UserDetailsService {
 
     @Autowired
@@ -32,7 +33,7 @@ public class AuthUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("id type must be long, id: " + id);
         }
         Long memberId = Long.parseLong(id);
-        if (this.isSkip()) {
+        if (!this.isSkip()) {
             memberRepository.findById(memberId)
                     .orElseThrow(() -> new UsernameNotFoundException("unauthorized error, unexpected id: " + id));
         }
@@ -46,7 +47,7 @@ public class AuthUserDetailService implements UserDetailsService {
     private boolean isSkip() {
         boolean skip = false;
         for (String profile : environment.getActiveProfiles()) {
-            if(profile.equals("local") && profile.equals("dev")) {
+            if (profile.equals("local") || profile.equals("dev")) {
                 skip = true;
                 break;
             }
