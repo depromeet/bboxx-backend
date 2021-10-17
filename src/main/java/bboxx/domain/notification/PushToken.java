@@ -41,6 +41,10 @@ public class PushToken extends BaseTimeEntity {
         this.state = state;
     }
 
+    public void deregisterToken() {
+        this.state = PushTokenState.DISABLED;
+        this.token = null;
+    }
     public void registerToken(String token) {
         this.state = PushTokenState.ENABLED;
         this.token = token;
