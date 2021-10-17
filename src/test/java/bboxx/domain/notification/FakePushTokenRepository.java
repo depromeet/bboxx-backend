@@ -18,6 +18,7 @@ public class FakePushTokenRepository implements PushTokenRepository {
             PushToken newPushToken = new PushToken(
                     RandomIdGenerator.generate(pushTokens.stream().map(PushToken::getId).collect(Collectors.toList())),
                     pushToken.getOwnerId(),
+                    pushToken.getOwnerNickname(),
                     pushToken.getToken(),
                     pushToken.getState()
             );

@@ -51,7 +51,7 @@ class GetPushTokenOneQueryHandlerTest {
     public void push_token_존재한다면_tokenView를_반환한다() {
         // given
         Long ownerId = 123L;
-        PushToken pushToken = new PushToken(123L, ownerId, "this_is_push_token!!", PushTokenState.ENABLED);
+        PushToken pushToken = new PushToken(123L, "ownerNickname", "this_is_push_token!!", PushTokenState.ENABLED);
 
         given(pushTokenReader.findByOwnerId(any()))
                 .willReturn(Optional.of(pushToken));

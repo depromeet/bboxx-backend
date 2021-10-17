@@ -21,6 +21,9 @@ public class PushToken extends BaseTimeEntity {
     @Column(unique = true, nullable = false)
     private Long ownerId;
 
+    @Column(nullable = false)
+    private String ownerNickname;
+
     @Column
     private String token;
 
@@ -28,15 +31,17 @@ public class PushToken extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private PushTokenState state;
 
-    public PushToken(Long id, Long ownerId, String token, PushTokenState state) {
+    public PushToken(Long id, Long ownerId, String ownerNickname, String token, PushTokenState state) {
         this.id = id;
         this.ownerId = ownerId;
+        this.ownerNickname = ownerNickname;
         this.token = token;
         this.state = state;
     }
 
-    public PushToken(Long ownerId, String token, PushTokenState state) {
+    public PushToken(Long ownerId, String ownerNickname, String token, PushTokenState state) {
         this.ownerId = ownerId;
+        this.ownerNickname = ownerNickname;
         this.token = token;
         this.state = state;
     }
@@ -52,5 +57,9 @@ public class PushToken extends BaseTimeEntity {
 
     public void changeToken(String token) {
         this.token = token;
+    }
+
+    public void changeNickname(String nickname) {
+        this.ownerNickname = nickname;
     }
 }

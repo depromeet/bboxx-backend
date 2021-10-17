@@ -19,6 +19,10 @@ public class ApiResponse<T> {
 
     private T data;
 
+    public static ApiResponse<EmptyJsonResponse> success() {
+        return new ApiResponse<>(SUCCESS_CODE, SUCCESS_MESSAGE, new EmptyJsonResponse());
+    }
+
     public static <T> ApiResponse<T> success(T data) {
         return new ApiResponse<>(SUCCESS_CODE, SUCCESS_MESSAGE, data);
     }

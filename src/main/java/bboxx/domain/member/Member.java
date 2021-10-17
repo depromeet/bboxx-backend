@@ -47,6 +47,12 @@ public class Member extends BaseTimeEntity {
         this.provider.setMember(this);
     }
 
+    public Member(Long id, String nickname, MemberState state) {
+        this.id = id;
+        this.nickname = nickname;
+        this.state = state;
+    }
+
     public String getProviderId() {
         return this.provider.getProviderId();
     }

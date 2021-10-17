@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,7 +20,7 @@ public class Notification extends BaseTimeEntity {
     private Long id;
 
     @Column
-    private Long memberId;
+    private Long receiverId;
 
     @Column
     private Long emotionId;
@@ -30,11 +31,26 @@ public class Notification extends BaseTimeEntity {
     @Column
     private String message;
 
-    public Notification(Long id, Long memberId, Long emotionId, String title, String message) {
+    @Column(nullable = false, length = 30)
+    @Enumerated(EnumType.STRING)
+    private NotificationState state;
+
+    public Notification(Long id, Long receiverId, Long emotionId, String title, String message, NotificationState state) {
         this.id = id;
-        this.memberId = memberId;
+        this.receiverId = receiverId;
         this.emotionId = emotionId;
         this.title = title;
         this.message = message;
+        this.state = state;
+    }
+
+    public Notification(Long receiverId, Long emotionId, NotificationState state) {
+        this.receiverId = receiverId;
+        this.emotionId = emotionId;
+        this.state = state;
+    }
+
+    public void translateMessages(String nickname, LocalDateTime emotionCreatedTime) {
+        String title = nickname + "!! ";
     }
 }
