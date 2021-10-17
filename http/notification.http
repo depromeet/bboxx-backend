@@ -21,3 +21,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLp
 GET http://localhost:8080/api/v1/push-tokens/1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzNDExMjkzMSwiZXhwIjoxNjM0NzE3NzMxfQ.Y0-cOEJ2fkjZst5cDpx169l-6xpF5N3Gi6OcsetSFNA
+
+### Post Send notification
+POST http://localhost:8080/api/v1/send-notification
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzNDExMjkzMSwiZXhwIjoxNjM0NzE3NzMxfQ.Y0-cOEJ2fkjZst5cDpx169l-6xpF5N3Gi6OcsetSFNA
+
+{
+
+}

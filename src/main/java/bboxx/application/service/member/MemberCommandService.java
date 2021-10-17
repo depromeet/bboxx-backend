@@ -1,19 +1,22 @@
 package bboxx.application.service.member;
 
-import bboxx.domain.member.command.*;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
 import bboxx.domain.member.Member;
 import bboxx.domain.member.SocialProvider;
+import bboxx.domain.member.command.*;
 import bboxx.domain.member.commandmodel.MemberCreator;
 import bboxx.domain.member.commandmodel.MemberRepository;
 import bboxx.domain.member.commandmodel.ProviderUserFetcher;
 import bboxx.domain.member.commandmodel.TokenGenerator;
+import bboxx.domain.notification.commandmodel.PushTokenRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
+@AllArgsConstructor
 public class MemberCommandService {
 
     private final ProviderUserFetcher providerUserFetcher;
@@ -21,12 +24,7 @@ public class MemberCommandService {
     private final MemberCreator memberCreator;
     private final TokenGenerator tokenGenerator;
 
-    public MemberCommandService(ProviderUserFetcher providerUserFetcher, MemberRepository memberRepository, MemberCreator memberCreator, TokenGenerator tokenGenerator) {
-        this.providerUserFetcher = providerUserFetcher;
-        this.memberRepository = memberRepository;
-        this.memberCreator = memberCreator;
-        this.tokenGenerator = tokenGenerator;
-    }
+    private final PushTokenRepository pushTokenRepository;
 
     @Transactional
     public SignInCommandResult signIn(SignInCommand command) {
@@ -54,6 +52,7 @@ public class MemberCommandService {
 
         member.updateInfo(command.getNickname());
 
-        memberRepository.save(member);
+        pushTokenRepository.findByOwnerId(command.getMemberId())
+                .ifPresent(token -> token.changeNickname(command.getNickname()));
     }
 }
