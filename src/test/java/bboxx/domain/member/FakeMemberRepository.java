@@ -1,5 +1,6 @@
 package bboxx.domain.member;
 
+import bboxx.domain.helper.RandomIdGenerator;
 import bboxx.domain.member.commandmodel.MemberRepository;
 
 import java.lang.reflect.Field;
