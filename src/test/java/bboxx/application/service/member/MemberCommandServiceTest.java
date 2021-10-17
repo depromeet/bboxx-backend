@@ -1,9 +1,8 @@
-package bboxx.application.service;
+package bboxx.application.service.member;
 
-import bboxx.application.service.member.MemberCommandService;
+import bboxx.domain.member.*;
 import bboxx.domain.member.command.SignInCommand;
 import bboxx.domain.member.command.SignInCommandResult;
-import bboxx.domain.member.*;
 import bboxx.domain.member.commandmodel.MemberCreator;
 import bboxx.domain.member.commandmodel.ProviderUserFetcher;
 import bboxx.domain.member.commandmodel.TokenGenerator;

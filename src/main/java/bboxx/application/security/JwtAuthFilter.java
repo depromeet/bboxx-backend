@@ -34,7 +34,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             this.jwtProvider.verifyToken(token);
 
             Long memberId = Long.parseLong(this.jwtProvider.getClaims(token).getSubject());
-//            UserDetails userDetails = this.userDetailService.loadById(memberId);
             UserDetails userDetails = new AuthUserDetail(memberId);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword());
