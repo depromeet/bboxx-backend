@@ -1,15 +1,12 @@
 package bboxx.domain.notification;
 
 import bboxx.domain.BaseTimeEntity;
-import bboxx.domain.notification.commandmodel.NotificationTranslator;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
