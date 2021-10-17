@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class RegisterPushTokenCommand {
+public class DeregisterPushTokenCommand {
     Long ownerId;
-    String token;
 }

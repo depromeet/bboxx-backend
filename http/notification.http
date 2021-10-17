@@ -7,3 +7,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLp
   "ownerId": 1,
   "token": "this_is_to2ken_111112333333"
 }
+
+### Post Deregister push token
+POST http://localhost:8080/api/v1/deregister-push-token
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzNDExMjkzMSwiZXhwIjoxNjM0NzE3NzMxfQ.Y0-cOEJ2fkjZst5cDpx169l-6xpF5N3Gi6OcsetSFNA
+
+{
+  "ownerId": 1
+}
