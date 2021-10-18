@@ -16,8 +16,17 @@ public class EmotionService {
 
     private final JpaEmotionRepository emotionRepository;
 
+    private final JpaEmotionStatusRepository emotionStatusRepository;
+
+
+    @Transactional
+    public CreateEmotionDiaryCommandInfo createInfo() {
+        return new CreateEmotionDiaryCommandInfo(emotionStatusRepository.findAll());
+    }
+
     @Transactional
     public void create(CreateEmotionDiaryCommand command) {
         emotionRepository.save(command.toEntity());
     }
+
 }

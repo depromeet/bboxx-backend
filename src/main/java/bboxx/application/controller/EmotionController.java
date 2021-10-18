@@ -18,6 +18,12 @@ public class EmotionController {
 
     private final EmotionService emotionService;
 
+    @ApiOperation(value = "감정 일기 등록 전 정보 요청")
+    @GetMapping("/")
+    public ApiResponse<CreateEmotionDiaryCommandInfo> createEmotionDiaryInfo() {
+        return ApiResponse.success(emotionService.createInfo());
+    }
+
     @ApiOperation(value = "감정 일기 등록 요청")
     @PostMapping("/")
     public ApiResponse<EmptyJsonResponse> createEmotionDiary(@RequestBody CreateEmotionDiaryCommand command) {
