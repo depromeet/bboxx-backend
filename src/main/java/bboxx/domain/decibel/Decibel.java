@@ -20,6 +20,7 @@ public class Decibel extends BaseTimeEntity {
     @Column
     private Long decibel;
 
+    @Column
     private Long memberId;
 
 }
