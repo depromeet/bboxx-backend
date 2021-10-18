@@ -5,6 +5,7 @@ import bboxx.application.controller.dto.response.EmptyJsonResponse;
 import bboxx.application.service.emotion.EmotionService;
 import bboxx.domain.emotion.command.CreateEmotionDiaryCommand;
 import bboxx.domain.emotion.command.CreateEmotionDiaryCommandInfo;
+import bboxx.domain.emotion.command.FindEmotionDiaryCommandResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,11 @@ public class EmotionController {
     public ApiResponse<EmptyJsonResponse> createEmotionDiary(@RequestBody CreateEmotionDiaryCommand command) {
         emotionService.create(command);
         return ApiResponse.success();
+    }
+
+    @ApiOperation(value = "감정 일기 조회 요청")
+    @GetMapping("/{emotionId}")
+    public ApiResponse<FindEmotionDiaryCommandResult> findEmotionDiary(@PathVariable Long emotionId) {
+        return ApiResponse.success(emotionService.findEmotionDiary(emotionId));
     }
 }

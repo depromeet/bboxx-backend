@@ -1,7 +1,6 @@
 package bboxx.domain.emotion;
 
 import lombok.*;
-import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 

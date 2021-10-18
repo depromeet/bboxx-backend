@@ -3,9 +3,6 @@ package bboxx.domain.emotion.command;
 import bboxx.domain.emotion.Emotion;
 import lombok.*;
 
-import javax.persistence.Column;
-import java.util.List;
-
 @Builder
 @Getter
 @Setter
