@@ -37,4 +37,11 @@ public class EmotionController {
     public ApiResponse<FindEmotionDiaryCommandResult> findEmotionDiary(@PathVariable Long emotionId) {
         return ApiResponse.success(emotionService.findEmotionDiary(emotionId));
     }
+
+    @ApiOperation(value = "감정 일기 삭제 요청")
+    @DeleteMapping("/{emotionId}")
+    public ApiResponse<EmptyJsonResponse> deleteEmotionDiary(@PathVariable Long emotionId) {
+        emotionService.delete(emotionId);
+        return ApiResponse.success();
+    }
 }

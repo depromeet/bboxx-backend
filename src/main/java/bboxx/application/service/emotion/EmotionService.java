@@ -53,4 +53,8 @@ public class EmotionService {
         return new FindEmotionDiaryCommandResult(emotion, emotionStatuses);
     }
 
+    @Transactional
+    public void delete(Long id) {
+        emotionRepository.deleteById(id);
+    }
 }
