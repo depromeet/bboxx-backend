@@ -1,7 +1,6 @@
 package bboxx.domain.decibel;
 
 import bboxx.domain.BaseTimeEntity;
-import bboxx.domain.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
