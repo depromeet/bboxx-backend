@@ -9,7 +9,8 @@ public enum DomainErrorCode {
     SOCIAL_USER_FETCH_ERROR(500, "BD003", "social user fetch error"),
     MEMBER_EXISTED_ERROR(400, "BD004", "member existed"),
     MEMBER_NOT_FOUND_ERROR(400, "BD005", "not found member"),
-    PUSH_TOKEN_NOT_FOUND_ERROR(400, "BD006", "not found push token");
+    PUSH_TOKEN_NOT_FOUND_ERROR(400, "BD006", "not found push token"),
+    DECIBEL_NOT_FOUND_ERROR(400, "BD007", "not found decibel");
 
     private final int status;
     private final String code;

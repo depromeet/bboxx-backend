@@ -23,4 +23,10 @@ public class DecibelService {
         return new CreateDecibelCommandResult(decibelRepository.save(command.toEntity()).getId());
     }
 
+    @Transactional
+    public FindDecibelCommandResult findDecibel(Long id) {
+        Decibel decibel = decibelRepository.findById(id)
+                .orElseThrow(() -> new DomainException(DomainErrorCode.DECIBEL_NOT_FOUND_ERROR));
+        return new FindDecibelCommandResult(decibel.getDecibel());
+    }
 }

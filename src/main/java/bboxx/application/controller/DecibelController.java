@@ -28,4 +28,9 @@ public class DecibelController {
         return ApiResponse.success(decibelService.create(command));
     }
 
+    @ApiOperation(value = "특정 데시벨 기록 정보 요청")
+    @GetMapping("/{decibelId}")
+    public ApiResponse<FindDecibelCommandResult> findDecibel(@PathVariable Long decibelId) {
+        return ApiResponse.success(decibelService.findDecibel(decibelId));
+    }
 }
