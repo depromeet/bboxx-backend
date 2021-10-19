@@ -19,6 +19,12 @@ bboxx:
     issuer: aaaaa
     client-id: 11111111
   google:
-    client-id: 302964666529-j9rfs75uevv86oepsfp5mvvq0h21mcga.apps.googleusercontent.com
+    client-id: xxxxxxxxxxxx
   jwt:
-    secret: ugYLSWEaK4CEFF9sQEE0RZy345nlTYv8Gawxbc9vAHgUjlhruX2LSfxiLyeRqjn73J4
+    secret: basljdbfjhbdfjbeyfbev123sQEE0R44Zy345nlTYv8Gawxbc9vAHgUjlhruX2LSfxiLyeRqjn73J4
+  firebase:
+    project-id: "xx"
+    client-id: "xxx"
+    client-email: "xxxx"
+    private-key: "xxxxxxx"
+    private-key-id: "xxxxxxxxx"
