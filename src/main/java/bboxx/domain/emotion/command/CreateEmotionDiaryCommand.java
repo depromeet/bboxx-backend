@@ -1,6 +1,6 @@
 package bboxx.domain.emotion.command;
 
-import bboxx.domain.emotion.Emotion;
+import bboxx.domain.emotion.EmotionDiary;
 import lombok.*;
 
 @Builder
@@ -20,8 +20,8 @@ public class CreateEmotionDiaryCommand {
 
     private String emotionStatuses;
 
-    public Emotion toEntity() {
-        return Emotion.builder()
+    public EmotionDiary toEntity() {
+        return EmotionDiary.builder()
                 .title(title)
                 .content(content)
                 .memberId(memberId)
