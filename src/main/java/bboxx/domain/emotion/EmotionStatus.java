@@ -18,7 +18,7 @@ public class EmotionStatus {
     @Column
     private String status;
 
-    @Column(columnDefinition = "TEXT")
-    private String emotionPath;
+    @Column(length = 512)
+    private String emotionUrl;
 
 }
