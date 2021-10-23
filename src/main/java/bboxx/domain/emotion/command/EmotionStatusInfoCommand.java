@@ -8,7 +8,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class CreateEmotionDiaryCommandInfo {
+public class EmotionStatusInfoCommand {
 
     private List<EmotionStatus> emotionStatuses;
 

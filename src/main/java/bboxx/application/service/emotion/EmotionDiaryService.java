@@ -1,10 +1,12 @@
 package bboxx.application.service.emotion;
 
-import bboxx.domain.emotion.Emotion;
+import bboxx.domain.emotion.EmotionDiary;
 import bboxx.domain.emotion.EmotionStatus;
 import bboxx.domain.emotion.command.CreateEmotionDiaryCommand;
-import bboxx.domain.emotion.command.CreateEmotionDiaryCommandInfo;
+import bboxx.domain.emotion.command.EmotionStatusInfoCommand;
 import bboxx.domain.emotion.command.FindEmotionDiaryCommandResult;
+import bboxx.domain.exception.DomainErrorCode;
+import bboxx.domain.exception.DomainException;
 import bboxx.infrastructure.repository.JpaEmotionRepository;
 import bboxx.infrastructure.repository.JpaEmotionStatusRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,43 +20,41 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class EmotionService {
+public class EmotionDiaryService {
 
     private final JpaEmotionRepository emotionRepository;
 
     private final JpaEmotionStatusRepository emotionStatusRepository;
 
 
-    @Transactional
-    public CreateEmotionDiaryCommandInfo createInfo() {
-        return new CreateEmotionDiaryCommandInfo(emotionStatusRepository.findAll());
+    public EmotionStatusInfoCommand emotionStatusInfo() {
+        return new EmotionStatusInfoCommand(emotionStatusRepository.findAll());
     }
 
     @Transactional
-    public void create(CreateEmotionDiaryCommand command) {
+    public void createEmotionDiary(CreateEmotionDiaryCommand command) {
         emotionRepository.save(command.toEntity());
     }
 
-    @Transactional
     public FindEmotionDiaryCommandResult findEmotionDiary(Long id) {
         // 감정 일기
-        Emotion emotion = emotionRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("감정 일기를 찾지 못했습니다."));
+        EmotionDiary emotionDiary = emotionRepository.findById(id)
+                .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_DIARY_NOT_FOUND_ERROR));
 
         // 감정 상태
-        String[] emotionStatusArray = emotion.getEmotionStatuses().replace(" ", "").split(",");
+        String[] emotionStatusArray = emotionDiary.getEmotionStatuses().replace(" ", "").split(",");
         List<EmotionStatus> emotionStatuses = new ArrayList<>();
         for (String status: emotionStatusArray) {
             Long statusNum = Long.valueOf(status);
             EmotionStatus emotionStatus = emotionStatusRepository.findById(statusNum)
-                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 감정상태 입니다."));
+                    .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_STATUS_NOT_FOUND_ERROR));
             emotionStatuses.add(emotionStatus);
         }
-        return new FindEmotionDiaryCommandResult(emotion, emotionStatuses);
+        return new FindEmotionDiaryCommandResult(emotionDiary, emotionStatuses);
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void deleteEmotionDiary(Long id) {
         emotionRepository.deleteById(id);
     }
 }

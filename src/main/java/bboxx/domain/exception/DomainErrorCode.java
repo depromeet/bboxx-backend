@@ -10,7 +10,10 @@ public enum DomainErrorCode {
     MEMBER_EXISTED_ERROR(400, "BD004", "member existed"),
     MEMBER_NOT_FOUND_ERROR(400, "BD005", "not found member"),
     PUSH_TOKEN_NOT_FOUND_ERROR(400, "BD006", "not found push token"),
-    DECIBEL_NOT_FOUND_ERROR(400, "BD007", "not found decibel");
+    DECIBEL_NOT_FOUND_ERROR(400, "BD007", "not found decibel"),
+    EMOTION_DIARY_NOT_FOUND_ERROR(400, "BD008", "not fond emotion diary"),
+    EMOTION_STATUS_NOT_FOUND_ERROR(400, "BD009", "not fond emotion status");
+
 
     private final int status;
     private final String code;
