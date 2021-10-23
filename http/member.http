@@ -8,7 +8,7 @@ Content-Type: application/json
 ### Put Member info
 PUT http://localhost:8080/api/v1/members/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzNDExMjkzMSwiZXhwIjoxNjM0NzE3NzMxfQ.Y0-cOEJ2fkjZst5cDpx169l-6xpF5N3Gi6OcsetSFNA
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
 
 {
   "nickname": "닉네임변경이다아아아아아!!!!"
@@ -18,4 +18,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLp
 ### Get Member Info
 GET http://localhost:8080/api/v1/members/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzNDExMjM1MiwiZXhwIjoxNjM0NzE3MTUyfQ.2Qb9ikBEpMig3QvzWZNVnbaAh7b9T_vh7fV8sPsl2ds
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
+
+### Get Member Info
+GET http://localhost:8080/api/v1/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
