@@ -4,6 +4,7 @@ import bboxx.domain.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,7 +36,16 @@ public class EmotionDiary extends BaseTimeEntity {
     @Column
     private Boolean isNotiSent;
 
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="emotion_diary_id")
+    private List<GrowthDiary> growthDiaries;
+
     public void sendNotification() {
         this.isNotiSent = true;
+    }
+
+    public void keepGrowthDiary(String title, String content, Long memberId, List<String> tags) {
+        GrowthDiary growthDiary = new GrowthDiary(title, content, memberId, this.id, tags);
+        this.growthDiaries.add(growthDiary);
     }
 }
