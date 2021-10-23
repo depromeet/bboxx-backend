@@ -3,15 +3,15 @@ package bboxx.application.controller;
 import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.application.controller.dto.response.EmptyJsonResponse;
 import bboxx.application.security.AuthUserDetail;
-import bboxx.application.service.notification.DeregisterPushTokenCommandHandler;
-import bboxx.application.service.notification.GetPushTokenOneQueryHandler;
-import bboxx.application.service.notification.RegisterPushTokenCommandHandler;
-import bboxx.application.service.notification.SendNotificationCommandHandler;
+import bboxx.application.service.notification.*;
+import bboxx.domain.notification.NotificationState;
 import bboxx.domain.notification.PushToken;
 import bboxx.domain.notification.command.DeregisterPushTokenCommand;
 import bboxx.domain.notification.command.RegisterPushTokenCommand;
 import bboxx.domain.notification.command.SendNotificationCommand;
+import bboxx.domain.notification.query.GetAllNotificationQuery;
 import bboxx.domain.notification.query.GetPushTokenOneQuery;
+import bboxx.domain.notification.querymodel.NotificationView;
 import bboxx.domain.notification.querymodel.PushTokenView;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +19,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Api(tags = "알람 api")
 @RestController
@@ -31,6 +35,7 @@ public class NotificationController {
     private final DeregisterPushTokenCommandHandler deregisterPushTokenCommandHandler;
     private final GetPushTokenOneQueryHandler getPushTokenOneQueryHandler;
     private final SendNotificationCommandHandler sendNotificationCommandHandler;
+    private final GetAllNotificationQueryHandler getAllNotificationQueryHandler;
 
     @ApiOperation(value = "push 토큰을 등록한다")
     @PostMapping("/register-push-token")
@@ -79,5 +84,18 @@ public class NotificationController {
         userDetail.validateSameUser(ownerId);
         GetPushTokenOneQuery query = new GetPushTokenOneQuery(ownerId);
         return ApiResponse.success(getPushTokenOneQueryHandler.handle(query));
+    }
+
+    @ApiOperation(value = "알람정보들을 가져온다.")
+    @GetMapping("/notifications")
+    public ApiResponse<List<NotificationView>> getNotifications(@RequestParam(value = "receiver_id") Long receiverId,
+                                                                @RequestParam(value = "cursor_id", required = false) Long cursorId,
+                                                                @RequestParam(value = "limit", required = false, defaultValue = "50") Long limit,
+                                                                @AuthenticationPrincipal AuthUserDetail userDetail) {
+
+        GetAllNotificationQuery query = new GetAllNotificationQuery(receiverId, cursorId, List.of(NotificationState.SENT), limit);
+        log.info("getNotifications request, authId: {}, query: {}", userDetail.getId(), query);
+        userDetail.validateSameUser(receiverId);
+        return ApiResponse.success(getAllNotificationQueryHandler.handle(query));
     }
 }

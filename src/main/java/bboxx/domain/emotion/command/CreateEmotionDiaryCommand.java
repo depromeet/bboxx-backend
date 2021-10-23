@@ -27,6 +27,7 @@ public class CreateEmotionDiaryCommand {
                 .memberId(memberId)
                 .categoryId(categoryId)
                 .emotionStatuses(emotionStatuses)
+                .isNotiSent(false)
                 .build();
     }
 

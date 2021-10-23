@@ -18,11 +18,11 @@ public class FcmNotifier implements PushNotifier {
     public void notify(PushToken token, Notification notification) {
 
         if (token.getToken() == null || token.getState().equals(PushTokenState.DISABLED)) {
-            log.info("this member is not allowed receive push, receiverId: {}, emotionId: {}, pushTokenState: {}", notification.getReceiverId(), notification.getEmotionId(), token.getState());
+            log.info("this member is not allowed receive push, receiverId: {}, emotionDiaryId: {}, pushTokenState: {}", notification.getReceiverId(), notification.getEmotionDiaryId(), token.getState());
             return;
         }
 
-        Message message = makeMessage(token.getToken(), null, notification.getMessage(), Map.of("emotionId", notification.getId().toString()));
+        Message message = makeMessage(token.getToken(), null, notification.getMessage(), Map.of("emotionDiaryId", notification.getId().toString()));
         try {
             String response = FirebaseMessaging.getInstance().sendAsync(message).get();
             log.info("success to send push message, response: {} ", response);

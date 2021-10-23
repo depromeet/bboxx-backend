@@ -9,6 +9,7 @@ import bboxx.domain.notification.command.SendNotificationCommand;
 import bboxx.domain.notification.commandmodel.NotificationRepository;
 import bboxx.domain.notification.commandmodel.PushNotifier;
 import bboxx.domain.notification.commandmodel.PushTokenRepository;
+import bboxx.infrastructure.repository.JpaEmotionRepository;
 import bboxx.infrastructure.translator.SimpleTranslator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,21 +37,25 @@ public class SendNotificationCommandHandlerTest {
     private NotificationRepository notificationRepository;
 
     @Mock
+    private JpaEmotionRepository emotionRepository;
+
+    @Mock
     private PushNotifier pushNotifier;
 
     @Test
     public void PushToken_이_없다면_에러를_반환한다() {
         // given
         Long receiverId = 123L;
-        Long emotionId = 123L;
+        Long emotionDiaryId = 123L;
 
         given(pushTokenRepository.findByOwnerId(any()))
                 .willReturn(Optional.empty());
 
-        SendNotificationCommand command = new SendNotificationCommand(receiverId, emotionId);
+        SendNotificationCommand command = new SendNotificationCommand(receiverId, emotionDiaryId);
         SendNotificationCommandHandler handler = new SendNotificationCommandHandler(
                 notificationRepository,
                 pushTokenRepository,
+                emotionRepository,
                 new SimpleTranslator(),
                 pushNotifier
         );
@@ -67,7 +72,7 @@ public class SendNotificationCommandHandlerTest {
     public void 정상적으로_성공하면_notification_을_생성한다() {
         // given
         Long receiverId = 123L;
-        Long emotionId = 123L;
+        Long emotionDiaryId = 123L;
         PushToken pushToken = new PushToken(11L, receiverId, "닉네임닉네임", "토큰토큰", PushTokenState.ENABLED);
 
         given(pushTokenRepository.findByOwnerId(any()))
@@ -75,10 +80,11 @@ public class SendNotificationCommandHandlerTest {
         given(notificationRepository.save(any()))
                 .willReturn(any());
 
-        SendNotificationCommand command = new SendNotificationCommand(receiverId, emotionId);
+        SendNotificationCommand command = new SendNotificationCommand(receiverId, emotionDiaryId);
         SendNotificationCommandHandler handler = new SendNotificationCommandHandler(
                 notificationRepository,
                 pushTokenRepository,
+                emotionRepository,
                 new SimpleTranslator(),
                 pushNotifier
         );
@@ -87,7 +93,7 @@ public class SendNotificationCommandHandlerTest {
         Notification result = handler.handle(command);
 
         // then
-        assertThat(result.getEmotionId()).isEqualTo(receiverId);
+        assertThat(result.getEmotionDiaryId()).isEqualTo(receiverId);
         assertThat(result.getMessage()).isNotNull();
         verify(pushNotifier, times(1)).notify(any(), any());
     }

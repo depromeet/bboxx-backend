@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class SendNotificationCommand {
     Long receiverId;
-    Long emotionId;
+    Long emotionDiaryId;
 }

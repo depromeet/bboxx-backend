@@ -22,7 +22,7 @@ public class Notification extends BaseTimeEntity {
     private Long receiverId;
 
     @Column
-    private Long emotionId;
+    private Long emotionDiaryId;
 
     @Column
     private String title;
@@ -34,18 +34,18 @@ public class Notification extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private NotificationState state;
 
-    public Notification(Long id, Long receiverId, Long emotionId, String title, String message, NotificationState state) {
+    public Notification(Long id, Long receiverId, Long emotionDiaryId, String title, String message, NotificationState state) {
         this.id = id;
         this.receiverId = receiverId;
-        this.emotionId = emotionId;
+        this.emotionDiaryId = emotionDiaryId;
         this.title = title;
         this.message = message;
         this.state = state;
     }
 
-    public Notification(Long receiverId, Long emotionId, String title, String message, NotificationState state) {
+    public Notification(Long receiverId, Long emotionDiaryId, String title, String message, NotificationState state) {
         this.receiverId = receiverId;
-        this.emotionId = emotionId;
+        this.emotionDiaryId = emotionDiaryId;
         this.title = title;
         this.message = message;
         this.state = state;

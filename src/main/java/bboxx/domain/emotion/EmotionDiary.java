@@ -10,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
+@ToString
 public class EmotionDiary extends BaseTimeEntity {
 
     @Id
@@ -31,4 +32,10 @@ public class EmotionDiary extends BaseTimeEntity {
     @Column
     private String emotionStatuses;
 
+    @Column
+    private Boolean isNotiSent;
+
+    public void sendNotification() {
+        this.isNotiSent = true;
+    }
 }
