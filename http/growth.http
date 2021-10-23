@@ -1,0 +1,17 @@
+### keep growth diary
+POST http://localhost:8080/api/v1/growth-diaries/keep
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
+
+{
+  "emotionDiaryId": 2,
+  "title": "아 정말 힘들다.",
+  "content": "오늘 너무 힘들어.. 끝나고 중요한 약속이 있었는데 갑자기 일이 생겼다. 미안하다고 하고 허겁지겁 일을 끝내가려는데 갑자기 약속도 취소되고.. 왜이렇게 되는 일이 없냐 ㅠ... 진짜 짜증나",
+  "memberId": "2",
+  "tags": [
+    "나 왜그랬지",
+    "아직도 열받아",
+    "미쳤다",
+    "그만할래"
+  ]
+}
