@@ -40,7 +40,7 @@ public class GoogleFetcher implements ProviderUserFetcher {
             idToken = verifier.verify(authData);
         } catch (GeneralSecurityException e) {
             throw new DomainException(DomainErrorCode.UNAUTHORIZED_ERROR);
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new DomainException(DomainErrorCode.INTERNAL_SERVER_ERROR);
         }
 
