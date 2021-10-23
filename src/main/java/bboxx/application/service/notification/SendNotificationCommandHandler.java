@@ -42,7 +42,7 @@ public class SendNotificationCommandHandler {
                 .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_DIARY_NOT_FOUND_ERROR));
         emotionDiary.sendNotification();
 
-        String message = translator.translateNotificationMessage(emotionDiary.getCreatedAt(), pushToken.getOwnerNickname(), "ko");
+        String message = translator.translateNotificationMessage(emotionDiary.getCreatedAt(), pushToken.getOwnerNickname(), "ko", emotionDiary.getTitle());
         Notification notification = new Notification(
                 command.getReceiverId(),
                 command.getEmotionDiaryId(),

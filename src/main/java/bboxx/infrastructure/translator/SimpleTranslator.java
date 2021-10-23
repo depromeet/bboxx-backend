@@ -1,6 +1,7 @@
 package bboxx.infrastructure.translator;
 
 import bboxx.domain.notification.commandmodel.NotificationTranslator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class SimpleTranslator implements NotificationTranslator {
 
     private static final Map<String, String> DATE_SUFFIX = Map.of(
@@ -19,7 +21,7 @@ public class SimpleTranslator implements NotificationTranslator {
     );
 
     @Override
-    public String translateNotificationMessage(LocalDateTime emotionCreatedTime, String nickname, String language) {
+    public String translateNotificationMessage(LocalDateTime emotionCreatedTime, String nickname, String language, String title) {
 
         ChronoUnit unit = ChronoUnit.MONTHS;
         long duration = ChronoUnit.MONTHS.between(emotionCreatedTime, LocalDateTime.now());
@@ -28,11 +30,15 @@ public class SimpleTranslator implements NotificationTranslator {
             duration = ChronoUnit.DAYS.between(emotionCreatedTime, LocalDateTime.now());
         }
 
-        String fullDate = emotionCreatedTime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
-        String date = duration + DATE_SUFFIX.getOrDefault(unit.toString(), "달");
-        return nickname + "! " +
-                date + " 전" +
-                "(" + fullDate + ") " + "에 " +
-                "쓴 일기가 도착했어 \uD83D\uDCEC 한번 읽어볼래?";
+        String fullDate = emotionCreatedTime.format(DateTimeFormatter.ofPattern("MM월 dd일"));
+        String message = nickname + "! " +
+                fullDate + "에 " +
+                "쓴 일기가 도착했어 \uD83D\uDCEC 한번 읽어볼래? " +
+                title;
+        if (message.length() > 46) {
+            message = message.substring(0, 46) + "...";
+        }
+        log.debug("message: {}, length: {}", message, message.length());
+        return message;
     }
 }
