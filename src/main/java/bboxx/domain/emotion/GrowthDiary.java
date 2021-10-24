@@ -1,9 +1,13 @@
 package bboxx.domain.emotion;
 
 import bboxx.domain.BaseTimeEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +31,15 @@ public class GrowthDiary extends BaseTimeEntity {
     @Column
     private Long memberId;
 
+    @Column
+    private LocalDateTime keptAt;
+
     @Column(name = "emotion_diary_id")
     private Long emotionDiaryId;
+
+//    @ManyToOne()
+//    @JoinColumn(name = "emotion_diary_id", nullable = false)
+//    private EmotionDiary emotionDiary;
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="growth_diary_id")
@@ -43,6 +54,21 @@ public class GrowthDiary extends BaseTimeEntity {
         this.memberId = memberId;
         this.emotionDiaryId = emotionDiaryId;
         this.growthDiaryTags = new ArrayList<>();
+        this.keptAt = LocalDateTime.now();
+
+        for (String tag : tags) {
+            GrowthDiaryTag growthDiaryTag = new GrowthDiaryTag(tag);
+            this.growthDiaryTags.add(growthDiaryTag);
+        }
+    }
+
+    public GrowthDiary(String title, String content, Long memberId, Long emotionDiaryId, List<String> tags, LocalDateTime keptAt) {
+        this.title = title;
+        this.content = content;
+        this.memberId = memberId;
+        this.emotionDiaryId = emotionDiaryId;
+        this.growthDiaryTags = new ArrayList<>();
+        this.keptAt = keptAt;
 
         for (String tag : tags) {
             GrowthDiaryTag growthDiaryTag = new GrowthDiaryTag(tag);

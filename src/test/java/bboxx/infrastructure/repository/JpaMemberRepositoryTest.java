@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("JpaMemberRepository")
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
+@Transactional
 public class JpaMemberRepositoryTest {
 
     @Autowired

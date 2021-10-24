@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("NotificationReader")
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
+@Transactional
 @Slf4j
 public class NotificationReaderTest {
 

@@ -23,5 +23,6 @@ public class KeepGrowthDiaryCommandHandler {
         EmotionDiary emotionDiary = emotionRepository.findById(command.getEmotionDiaryId())
                 .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_DIARY_NOT_FOUND_ERROR));
         emotionDiary.keepGrowthDiary(command.getTitle(), command.getContent(), command.getMemberId(), command.getTags());
+        emotionRepository.save(emotionDiary);
     }
 }

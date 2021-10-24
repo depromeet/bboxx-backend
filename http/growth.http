@@ -15,3 +15,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLp
     "그만할래"
   ]
 }
+
+### Get growth diary
+GET http://localhost:8080/api/v1/growth-diaries?member_id=2&year=2021&month=10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs

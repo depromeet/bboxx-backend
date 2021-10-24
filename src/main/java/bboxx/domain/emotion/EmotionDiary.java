@@ -37,8 +37,15 @@ public class EmotionDiary extends BaseTimeEntity {
     private Boolean isNotiSent;
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="emotion_diary_id")
     private List<GrowthDiary> growthDiaries;
+
+    public EmotionDiary(String title, String content, Long memberId, Long categoryId, String emotionStatuses) {
+        this.title = title;
+        this.content = content;
+        this.memberId = memberId;
+        this.categoryId = categoryId;
+        this.emotionStatuses = emotionStatuses;
+    }
 
     public void sendNotification() {
         this.isNotiSent = true;
