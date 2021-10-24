@@ -27,11 +27,11 @@ public class ApiResponse<T> {
         return new ApiResponse<>(SUCCESS_CODE, SUCCESS_MESSAGE, data);
     }
 
-    public static <T> ApiResponse<T> failure(String code, String message) {
-        return new ApiResponse<>(code, message, null);
+    public static ApiResponse<EmptyJsonResponse> failure(String code, String message) {
+        return new ApiResponse<>(code, message, new EmptyJsonResponse());
     }
-    public static <T> ApiResponse<T> failure(DomainErrorCode errorCode) {
-        return new ApiResponse<>(errorCode.getCode(), errorCode.getMessage(), null);
+    public static ApiResponse<EmptyJsonResponse> failure(DomainErrorCode errorCode) {
+        return new ApiResponse<>(errorCode.getCode(), errorCode.getMessage(), new EmptyJsonResponse());
     }
 
 
