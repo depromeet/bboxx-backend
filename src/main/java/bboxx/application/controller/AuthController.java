@@ -29,7 +29,8 @@ public class AuthController {
     @ApiOperation(value = "로그인 요청")
     @PostMapping("/signin")
     public ApiResponse<SignInCommandResult> signIn(@RequestBody SignInCommand command) {
-        return ApiResponse.success(memberService.signIn(command));
+        return ApiResponse.
+                success(memberService.signIn(command));
     }
 
     @ApiOperation(value = "유저 등록 요청")

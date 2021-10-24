@@ -14,10 +14,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
-@Api(tags = "감정 일기 api")
+@Api(tags = "성장 일기 api")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/improvement-diaries")
@@ -30,7 +31,7 @@ public class ImprovementDiaryController {
     @ApiOperation(value = "성장 일기 쓰기")
     @PostMapping("/keep")
     public ApiResponse<EmptyJsonResponse> keepImprovementDiary(@RequestBody KeepImprovementDiaryCommand command,
-                                                             @AuthenticationPrincipal AuthUserDetail userDetail) {
+                                                               @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
         userDetail.validateSameUser(command.getMemberId());
         keepImprovementDiaryCommandHandler.handle(command);
         return ApiResponse.success();
@@ -41,7 +42,7 @@ public class ImprovementDiaryController {
     public ApiResponse<List<ImprovementDiaryView>> getAllImprovementDiaryInMonth(@RequestParam(value = "member_id") Long memberId,
                                                                                  @RequestParam(value = "year") int year,
                                                                                  @RequestParam(value = "month") int month,
-                                                                                 @AuthenticationPrincipal AuthUserDetail userDetail) {
+                                                                                 @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
         GetAllImprovementDiaryInMonthQuery query = new GetAllImprovementDiaryInMonthQuery(memberId, year, month);
         log.info("getAllImprovementDiaryInMonth request, authId: {}, query: {}", userDetail.getId(), query);
         userDetail.validateSameUser(memberId);
