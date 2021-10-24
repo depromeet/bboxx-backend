@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = "회원정보 api")
 @RestController
@@ -42,7 +43,7 @@ public class MemberController {
     @PutMapping("/api/v1/members/{memberId}")
     public ApiResponse<MemberView> updateMember(@PathVariable Long memberId,
                                                 @RequestBody UpdateMemberRequest request,
-                                                @AuthenticationPrincipal AuthUserDetail userDetail) {
+                                                @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
 
         userDetail.validateSameUser(memberId);
 

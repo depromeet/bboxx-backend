@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = "감정 일기 api")
 @RestController
@@ -22,15 +23,15 @@ public class EmotionController {
     private final EmotionDiaryService emotionDiaryService;
 
     @ApiOperation(value = "감정 일기 등록 전 정보 요청")
-    @GetMapping("/")
+    @GetMapping("")
     public ApiResponse<EmotionStatusInfoCommand> createEmotionDiaryInfo() {
         return ApiResponse.success(emotionDiaryService.emotionStatusInfo());
     }
 
     @ApiOperation(value = "감정 일기 등록 요청")
-    @PostMapping("/")
+    @PostMapping("")
     public ApiResponse<EmptyJsonResponse> createEmotionDiary(@RequestBody CreateEmotionDiaryCommand command,
-                                                             @AuthenticationPrincipal AuthUserDetail userDetail) {
+                                                             @ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
         userDetail.validateSameUser(command.getMemberId());
         emotionDiaryService.createEmotionDiary(command);
         return ApiResponse.success();

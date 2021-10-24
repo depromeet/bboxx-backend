@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +69,7 @@ public class NotificationController {
     @ApiOperation(value = "특정 감정일기에 대한 노티를 전송한다.")
     @PostMapping("/send-notification")
     public ApiResponse<EmptyJsonResponse> sendNotification(@RequestBody SendNotificationCommand command,
-                                                          @AuthenticationPrincipal AuthUserDetail userDetail) {
+                                                           @ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
 
         userDetail.validateSameUser(command.getReceiverId());
         sendNotificationCommandHandler.handle(command);
@@ -78,7 +79,7 @@ public class NotificationController {
     @ApiOperation(value = "push 토큰정보를 가져온다.")
     @GetMapping("/push-tokens/{ownerId}")
     public ApiResponse<PushTokenView> getPushTokenOne(@PathVariable Long ownerId,
-                                                      @AuthenticationPrincipal AuthUserDetail userDetail) {
+                                                      @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
 
         log.info("getPushTokenOne request, authId: {}, ownerId: {}", userDetail.getId(), ownerId);
         userDetail.validateSameUser(ownerId);
@@ -91,7 +92,7 @@ public class NotificationController {
     public ApiResponse<List<NotificationView>> getNotifications(@RequestParam(value = "receiver_id") Long receiverId,
                                                                 @RequestParam(value = "cursor_id", required = false) Long cursorId,
                                                                 @RequestParam(value = "limit", required = false, defaultValue = "50") Long limit,
-                                                                @AuthenticationPrincipal AuthUserDetail userDetail) {
+                                                                @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
 
         GetAllNotificationQuery query = new GetAllNotificationQuery(receiverId, cursorId, List.of(NotificationState.SENT), limit);
         log.info("getNotifications request, authId: {}, query: {}", userDetail.getId(), query);

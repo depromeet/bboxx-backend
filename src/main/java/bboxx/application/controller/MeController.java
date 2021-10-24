@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = "내정보 api")
 @RestController
@@ -23,7 +24,7 @@ public class MeController {
 
     @ApiOperation(value = "내 정보를 가져온다.")
     @GetMapping("/api/v1/me")
-    public ApiResponse<MemberView> getMemberById(@AuthenticationPrincipal AuthUserDetail userDetail) {
+    public ApiResponse<MemberView> getMemberById(@ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
         MemberView memberView = memberQueryService.getMemberOne(new GetMemberOneQuery(userDetail.getId()));
         return ApiResponse.success(memberView);
     }

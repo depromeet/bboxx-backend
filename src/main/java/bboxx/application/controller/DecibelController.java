@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = "빡침 측정 api")
 @RestController
@@ -21,9 +22,9 @@ public class DecibelController {
     private final DecibelService decibelService;
 
     @ApiOperation(value = "데시벨 측정 기록 등록 요청")
-    @PostMapping("/")
+    @PostMapping("")
     public ApiResponse<CreateDecibelCommandResult> createDecibel(@RequestBody CreateDecibelCommand command,
-                                                                 @AuthenticationPrincipal AuthUserDetail userDetail) {
+                                                                 @ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
         userDetail.validateSameUser(command.getMemberId());
         return ApiResponse.success(decibelService.create(command));
     }
