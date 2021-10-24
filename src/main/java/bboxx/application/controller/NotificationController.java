@@ -39,7 +39,7 @@ public class NotificationController {
     private final GetAllNotificationQueryHandler getAllNotificationQueryHandler;
 
     @ApiOperation(value = "push 토큰을 등록한다")
-    @PostMapping("/register-push-token")
+    @PostMapping("/push-tokens/register-push-token")
     public ApiResponse<PushToken> registerPushToken(@RequestBody RegisterPushTokenCommand command,
                                                     @AuthenticationPrincipal AuthUserDetail userDetail) {
 
@@ -49,31 +49,13 @@ public class NotificationController {
     }
 
     @ApiOperation(value = "push 토큰을 등록 해제한다.")
-    @PostMapping("/deregister-push-token")
+    @PostMapping("/push-tokens/deregister-push-token")
     public ApiResponse<PushToken> deregisterPushToken(@RequestBody DeregisterPushTokenCommand command,
                                                       @AuthenticationPrincipal AuthUserDetail userDetail) {
 
         log.info("deregisterPushToken request, authId: {}, ownerId: {}", userDetail.getId(), command.getOwnerId());
         userDetail.validateSameUser(command.getOwnerId());
         return ApiResponse.success(deregisterPushTokenCommandHandler.handle(command));
-    }
-
-    @ApiOperation(value = "여러 노티를 전송한다.")
-    @PostMapping("/send-batch-notification")
-    public ApiResponse<EmptyJsonResponse> sendBatchNotification() {
-//        log.info("registerPushToken request, authId: {}, ownerId: {}", userDetail.getId(), command.getOwnerId());
-//        userDetail.validateSameUser(command.getOwnerId());
-        return ApiResponse.success();
-    }
-
-    @ApiOperation(value = "특정 감정일기에 대한 노티를 전송한다.")
-    @PostMapping("/send-notification")
-    public ApiResponse<EmptyJsonResponse> sendNotification(@RequestBody SendNotificationCommand command,
-                                                           @ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
-
-        userDetail.validateSameUser(command.getReceiverId());
-        sendNotificationCommandHandler.handle(command);
-        return ApiResponse.success();
     }
 
     @ApiOperation(value = "push 토큰정보를 가져온다.")
@@ -85,6 +67,24 @@ public class NotificationController {
         userDetail.validateSameUser(ownerId);
         GetPushTokenOneQuery query = new GetPushTokenOneQuery(ownerId);
         return ApiResponse.success(getPushTokenOneQueryHandler.handle(query));
+    }
+
+    @ApiOperation(value = "여러 노티를 전송한다.")
+    @PostMapping("/notifications/send-batch-notification")
+    public ApiResponse<EmptyJsonResponse> sendBatchNotification() {
+//        log.info("registerPushToken request, authId: {}, ownerId: {}", userDetail.getId(), command.getOwnerId());
+//        userDetail.validateSameUser(command.getOwnerId());
+        return ApiResponse.success();
+    }
+
+    @ApiOperation(value = "특정 감정일기에 대한 노티를 전송한다.")
+    @PostMapping("/notifications/send-notification")
+    public ApiResponse<EmptyJsonResponse> sendNotification(@RequestBody SendNotificationCommand command,
+                                                           @ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
+
+        userDetail.validateSameUser(command.getReceiverId());
+        sendNotificationCommandHandler.handle(command);
+        return ApiResponse.success();
     }
 
     @ApiOperation(value = "알람정보들을 가져온다.")

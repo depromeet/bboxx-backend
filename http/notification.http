@@ -1,5 +1,5 @@
 ### Post Register push token
-POST http://localhost:8080/api/v1/register-push-token
+POST http://localhost:8080/api/v1/push-tokens/register-push-token
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
 
@@ -9,7 +9,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLp
 }
 
 ### Post Deregister push token
-POST http://localhost:8080/api/v1/deregister-push-token
+POST http://localhost:8080/api/v1/push-tokens/deregister-push-token
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
 
@@ -18,12 +18,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLp
 }
 
 ### Get push token
-GET http://localhost:8080/api/v1/push-tokens/1
+GET http://localhost:8080/api/v1/push-tokens/2
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
 
 ### Post Send notification
-POST http://localhost:8080/api/v1/send-notification
+POST http://localhost:8080/api/v1/notifications/send-notification
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
 
