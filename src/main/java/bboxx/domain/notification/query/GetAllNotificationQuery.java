@@ -14,7 +14,7 @@ import java.util.List;
 @ToString
 public class GetAllNotificationQuery {
     Long receiverId;
-    Long cursorId;
+    Long idCursor;
     List<NotificationState> states;
     Long limit;
 }

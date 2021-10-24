@@ -1,5 +1,5 @@
 ### Post Register push token
-POST http://localhost:8080/api/v1/push-tokens/register-push-token
+POST http://localhost:8080/api/v1/push-tokens/register
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
 
@@ -9,7 +9,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLp
 }
 
 ### Post Deregister push token
-POST http://localhost:8080/api/v1/push-tokens/deregister-push-token
+POST http://localhost:8080/api/v1/push-tokens/deregister
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
 
@@ -23,13 +23,13 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
 
 ### Post Send notification
-POST http://localhost:8080/api/v1/notifications/send-notification
+POST http://localhost:8080/api/v1/notifications/send
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
 
 {
   "receiverId": 2,
-  "emotionDiaryId": 2
+  "emotionDiaryId": 1
 }
 
 ### Get notification

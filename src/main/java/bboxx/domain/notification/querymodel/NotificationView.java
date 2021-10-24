@@ -1,6 +1,5 @@
 package bboxx.domain.notification.querymodel;
 
-import bboxx.domain.emotion.EmotionDiary;
 import bboxx.domain.notification.NotificationState;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 public class NotificationView {
     private Long id;
     private Long receiverId;
-    private EmotionDiary emotionDiary;
+    private Long emotionDiaryId;
     private String title;
     private String message;
     private NotificationState state;
