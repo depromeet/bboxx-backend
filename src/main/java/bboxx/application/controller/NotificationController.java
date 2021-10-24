@@ -21,9 +21,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Api(tags = "알람 api")
 @RestController
@@ -39,7 +37,7 @@ public class NotificationController {
     private final GetAllNotificationQueryHandler getAllNotificationQueryHandler;
 
     @ApiOperation(value = "push 토큰을 등록한다")
-    @PostMapping("/push-tokens/register-push-token")
+    @PostMapping("/push-tokens/register")
     public ApiResponse<PushToken> registerPushToken(@RequestBody RegisterPushTokenCommand command,
                                                     @AuthenticationPrincipal AuthUserDetail userDetail) {
 
@@ -49,7 +47,7 @@ public class NotificationController {
     }
 
     @ApiOperation(value = "push 토큰을 등록 해제한다.")
-    @PostMapping("/push-tokens/deregister-push-token")
+    @PostMapping("/push-tokens/deregister")
     public ApiResponse<PushToken> deregisterPushToken(@RequestBody DeregisterPushTokenCommand command,
                                                       @AuthenticationPrincipal AuthUserDetail userDetail) {
 
@@ -70,7 +68,7 @@ public class NotificationController {
     }
 
     @ApiOperation(value = "여러 노티를 전송한다.")
-    @PostMapping("/notifications/send-batch-notification")
+    @PostMapping("/notifications/send-batch")
     public ApiResponse<EmptyJsonResponse> sendBatchNotification() {
 //        log.info("registerPushToken request, authId: {}, ownerId: {}", userDetail.getId(), command.getOwnerId());
 //        userDetail.validateSameUser(command.getOwnerId());
@@ -78,7 +76,7 @@ public class NotificationController {
     }
 
     @ApiOperation(value = "특정 감정일기에 대한 노티를 전송한다.")
-    @PostMapping("/notifications/send-notification")
+    @PostMapping("/notifications/send")
     public ApiResponse<EmptyJsonResponse> sendNotification(@RequestBody SendNotificationCommand command,
                                                            @ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
 
@@ -90,11 +88,11 @@ public class NotificationController {
     @ApiOperation(value = "알람정보들을 가져온다.")
     @GetMapping("/notifications")
     public ApiResponse<List<NotificationView>> getNotifications(@RequestParam(value = "receiver_id") Long receiverId,
-                                                                @RequestParam(value = "cursor_id", required = false) Long cursorId,
+                                                                @RequestParam(value = "idCursor", required = false) Long idCursor,
                                                                 @RequestParam(value = "limit", required = false, defaultValue = "50") Long limit,
                                                                 @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
 
-        GetAllNotificationQuery query = new GetAllNotificationQuery(receiverId, cursorId, List.of(NotificationState.SENT), limit);
+        GetAllNotificationQuery query = new GetAllNotificationQuery(receiverId, idCursor, List.of(NotificationState.SENT), limit);
         log.info("getNotifications request, authId: {}, query: {}", userDetail.getId(), query);
         userDetail.validateSameUser(receiverId);
         return ApiResponse.success(getAllNotificationQueryHandler.handle(query));

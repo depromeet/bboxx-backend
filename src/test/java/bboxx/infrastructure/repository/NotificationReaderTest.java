@@ -46,16 +46,9 @@ public class NotificationReaderTest {
             NotificationReader notificationReader = new NotificationReaderImpl(jpaQueryFactory);
 
             Long receiverId = 123L;
-            EmotionDiary emotionDiary = EmotionDiary.builder()
-                    .title("감정 타이틀")
-                    .content("감정 콘텐츠")
-                    .memberId(receiverId)
-                    .categoryId(123L)
-                    .emotionStatuses("감정상태들")
-                    .build();
-            emotionDiaryRepository.save(emotionDiary);
 
-            Notification notification = new Notification(receiverId, emotionDiary.getId(), "타이틀입이다.", "메시지입니다", NotificationState.SENT);
+
+            Notification notification = new Notification(receiverId, 123L, "타이틀입이다.", "메시지입니다", NotificationState.SENT);
             entityManager.persist(notification);
 
             GetAllNotificationQuery query = new GetAllNotificationQuery(receiverId, null, new ArrayList<>(), 30L);
@@ -67,7 +60,6 @@ public class NotificationReaderTest {
             assertThat(result.size()).isGreaterThanOrEqualTo(1);
             assertThat(result.get(0)).isNotNull();
             assertThat(result.get(0).getReceiverId()).isEqualTo(receiverId);
-            assertThat(result.get(0).getEmotionDiary()).isNotNull();
         }
     }
 }

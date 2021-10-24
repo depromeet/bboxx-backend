@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static bboxx.domain.emotion.QEmotionDiary.emotionDiary;
 import static bboxx.domain.notification.QNotification.notification;
 
 @Repository
@@ -34,16 +33,22 @@ public class NotificationReaderImpl implements NotificationReader {
                         notification.createdAt,
                         notification.updatedAt,
                         notification.state,
-                        emotionDiary
+                        notification.emotionDiaryId
                 )).from(notification)
-                .join(emotionDiary).on(notification.emotionDiaryId.eq(emotionDiary.id))
                 .where(
-                        notification.receiverId.eq(query.getReceiverId()),
-                        lessThanCursorId(query.getCursorId()),
+                        eqReceiverId(query.getReceiverId()),
+                        lessThanIdCursor(query.getIdCursor()),
                         inStates(query.getStates())
                 )
                 .limit(query.getLimit())
                 .fetch();
+    }
+
+    private BooleanExpression eqReceiverId(Long receiverId) {
+        if (receiverId == null || receiverId < 1) {
+            return null;
+        }
+        return notification.receiverId.eq(receiverId);
     }
 
     private BooleanExpression inStates(List<NotificationState> states) {
@@ -53,10 +58,10 @@ public class NotificationReaderImpl implements NotificationReader {
         return notification.state.in(states);
     }
 
-    private BooleanExpression lessThanCursorId(Long cursorId) {
-        if (cursorId == null) {
+    private BooleanExpression lessThanIdCursor(Long idCursor) {
+        if (idCursor == null) {
             return null;
         }
-        return notification.id.lt(cursorId);
+        return notification.id.lt(idCursor);
     }
 }
