@@ -23,7 +23,7 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private MemberState state;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "member")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
     private SocialProvider provider;
 
     public Member(Long id, String nickname, MemberState state, SocialProvider provider) {

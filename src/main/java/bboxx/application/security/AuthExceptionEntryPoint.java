@@ -1,6 +1,7 @@
 package bboxx.application.security;
 
 import bboxx.application.controller.dto.response.ApiResponse;
+import bboxx.application.controller.dto.response.EmptyJsonResponse;
 import bboxx.domain.exception.DomainErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
 
         log.error(e.getMessage(), e);
 
-        ApiResponse<Object> unauthorizedResponse = ApiResponse.failure(DomainErrorCode.UNAUTHORIZED_ERROR);
+        var unauthorizedResponse = ApiResponse.failure(DomainErrorCode.UNAUTHORIZED_ERROR);
         String jsonLoginResponse = objectMapper.writeValueAsString(unauthorizedResponse);
 
         httpServletResponse.setContentType("application/json");

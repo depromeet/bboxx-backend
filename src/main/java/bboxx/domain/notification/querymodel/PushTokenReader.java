@@ -5,5 +5,5 @@ import bboxx.domain.notification.PushToken;
 import java.util.Optional;
 
 public interface PushTokenReader {
-    Optional<PushToken> findByOwnerId(Long id);
+    Optional<PushToken> findByOwnerId(Long ownerId);
 }
