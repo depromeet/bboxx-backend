@@ -4,6 +4,7 @@ import bboxx.domain.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -37,7 +38,7 @@ public class EmotionDiary extends BaseTimeEntity {
     private Boolean isNotiSent;
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<GrowthDiary> growthDiaries;
+    private List<ImprovementDiary> improvementDiaries;
 
     public EmotionDiary(String title, String content, Long memberId, Long categoryId, String emotionStatuses) {
         this.title = title;
@@ -47,12 +48,21 @@ public class EmotionDiary extends BaseTimeEntity {
         this.emotionStatuses = emotionStatuses;
     }
 
+    public EmotionDiary(String title, String content, Long memberId, Long categoryId, String emotionStatuses, LocalDateTime createdAt) {
+        this.title = title;
+        this.content = content;
+        this.memberId = memberId;
+        this.categoryId = categoryId;
+        this.emotionStatuses = emotionStatuses;
+        this.createdAt = createdAt;
+    }
+
     public void sendNotification() {
         this.isNotiSent = true;
     }
 
-    public void keepGrowthDiary(String title, String content, Long memberId, List<String> tags) {
-        GrowthDiary growthDiary = new GrowthDiary(title, content, memberId, this.id, tags);
-        this.growthDiaries.add(growthDiary);
+    public void keepImprovementDiary(String title, String content, Long memberId, List<String> tags) {
+        ImprovementDiary improvementDiary = new ImprovementDiary(title, content, memberId, this.id, tags);
+        this.improvementDiaries.add(improvementDiary);
     }
 }

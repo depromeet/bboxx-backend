@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-@DisplayName("KeepGrowthDiaryCommandHandler")
+@DisplayName("KeepImprovementDiaryCommandHandler")
 @ExtendWith(MockitoExtension.class)
 @Slf4j
-public class KeepGrowthDiaryCommandHandlerTest {
+public class KeepImprovementDiaryCommandHandlerTest {
 }

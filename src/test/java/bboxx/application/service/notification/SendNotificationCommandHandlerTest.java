@@ -1,5 +1,6 @@
 package bboxx.application.service.notification;
 
+import bboxx.domain.emotion.EmotionDiary;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
 import bboxx.domain.notification.Notification;
@@ -11,12 +12,15 @@ import bboxx.domain.notification.commandmodel.PushNotifier;
 import bboxx.domain.notification.commandmodel.PushTokenRepository;
 import bboxx.infrastructure.repository.JpaEmotionRepository;
 import bboxx.infrastructure.translator.SimpleTranslator;
+import com.github.javafaker.Faker;
+import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,6 +45,8 @@ public class SendNotificationCommandHandlerTest {
 
     @Mock
     private PushNotifier pushNotifier;
+
+    private final Faker faker = new Faker();
 
     @Test
     public void PushToken_이_없다면_에러를_반환한다() {
@@ -77,6 +83,8 @@ public class SendNotificationCommandHandlerTest {
 
         given(pushTokenRepository.findByOwnerId(any()))
                 .willReturn(Optional.of(pushToken));
+        given(emotionRepository.findById(any()))
+                .willReturn(Optional.of(new EmotionDiary("타이틀", "컨텐츠", receiverId, 1L, "11111", LocalDateTime.now())));
         given(notificationRepository.save(any()))
                 .willReturn(any());
 

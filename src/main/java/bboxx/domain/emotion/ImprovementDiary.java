@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 @Entity
 @ToString
-public class GrowthDiary extends BaseTimeEntity {
+public class ImprovementDiary extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,42 +37,38 @@ public class GrowthDiary extends BaseTimeEntity {
     @Column(name = "emotion_diary_id")
     private Long emotionDiaryId;
 
-//    @ManyToOne()
-//    @JoinColumn(name = "emotion_diary_id", nullable = false)
-//    private EmotionDiary emotionDiary;
-
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="growth_diary_id")
-    private List<GrowthDiaryTag> growthDiaryTags;
+    @JoinColumn(name="improvement_diary_id")
+    private List<ImprovementDiaryTag> tags;
 
-    protected GrowthDiary() {
+    protected ImprovementDiary() {
     }
 
-    public GrowthDiary(String title, String content, Long memberId, Long emotionDiaryId, List<String> tags) {
+    public ImprovementDiary(String title, String content, Long memberId, Long emotionDiaryId, List<String> tags) {
         this.title = title;
         this.content = content;
         this.memberId = memberId;
         this.emotionDiaryId = emotionDiaryId;
-        this.growthDiaryTags = new ArrayList<>();
+        this.tags = new ArrayList<>();
         this.keptAt = LocalDateTime.now();
 
         for (String tag : tags) {
-            GrowthDiaryTag growthDiaryTag = new GrowthDiaryTag(tag);
-            this.growthDiaryTags.add(growthDiaryTag);
+            ImprovementDiaryTag improvementDiaryTag = new ImprovementDiaryTag(tag);
+            this.tags.add(improvementDiaryTag);
         }
     }
 
-    public GrowthDiary(String title, String content, Long memberId, Long emotionDiaryId, List<String> tags, LocalDateTime keptAt) {
+    public ImprovementDiary(String title, String content, Long memberId, Long emotionDiaryId, List<String> tags, LocalDateTime keptAt) {
         this.title = title;
         this.content = content;
         this.memberId = memberId;
         this.emotionDiaryId = emotionDiaryId;
-        this.growthDiaryTags = new ArrayList<>();
+        this.tags = new ArrayList<>();
         this.keptAt = keptAt;
 
         for (String tag : tags) {
-            GrowthDiaryTag growthDiaryTag = new GrowthDiaryTag(tag);
-            this.growthDiaryTags.add(growthDiaryTag);
+            ImprovementDiaryTag improvementDiaryTag = new ImprovementDiaryTag(tag);
+            this.tags.add(improvementDiaryTag);
         }
     }
 }

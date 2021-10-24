@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class KeepGrowthDiaryCommand {
+public class KeepImprovementDiaryCommand {
     private Long emotionDiaryId;
     private String title;
     private String content;
