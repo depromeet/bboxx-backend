@@ -29,6 +29,10 @@ Content-Type: application/json
 
 
 ### Validate jwt
-GET http://localhost:8080/api/v1/auth/validate-jwt/aa
+POST http://localhost:8080/api/v1/auth/validate-jwt
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6InBpa2FjaHUiLCJpZCI6IjEiLCJzdWIiOiIxIiwiaWF0IjoxNjMzMjcwNjE0LCJleHAiOjE2MzM4NzU0MTR9.oQ-t7YG0IlX8AiANdvzKFvf6pMWKo4i6zdQtBgE-QHs
+
+{
+  "jwt": "eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs"
+}

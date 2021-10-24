@@ -1,6 +1,8 @@
 package bboxx.application.controller;
 
+import bboxx.application.controller.dto.request.ValidateJwtRequest;
 import bboxx.application.controller.dto.response.ApiResponse;
+import bboxx.application.controller.dto.response.ValidateJwtApiDto;
 import bboxx.application.service.member.MemberCommandService;
 import bboxx.domain.member.command.SignInCommand;
 import bboxx.domain.member.command.SignInCommandResult;
@@ -37,14 +39,14 @@ public class AuthController {
     }
 
     @ApiOperation(value = "jwt 테스트 api")
-    @GetMapping("/validate-jwt/{jwt}")
-    public ApiResponse<Boolean> validateJwt(@PathVariable String jwt) {
+    @PostMapping("/validate-jwt")
+    public ApiResponse<ValidateJwtApiDto> validateJwt(@RequestBody ValidateJwtRequest request) {
 
         try {
-            jwtProvider.verifyToken(jwt);
-            return ApiResponse.success(true);
+            jwtProvider.verifyToken(request.getJwt());
+            return ApiResponse.success(new ValidateJwtApiDto(true));
         } catch (Exception e) {
-            return ApiResponse.success(false);
+            return ApiResponse.success(new ValidateJwtApiDto(false));
         }
     }
 }
