@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @ToString
-public class GrowthDiaryTag {
+public class ImprovementDiaryTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +21,14 @@ public class GrowthDiaryTag {
     @Column
     private String tag;
 
-    @Column(name = "growth_diary_id")
-    private Long growthDiaryId;
+    @Column(name = "improvement_diary_id")
+    private Long improvementDiaryId;
 
-    public GrowthDiaryTag() {
+    public ImprovementDiaryTag() {
 
     }
 
-    public GrowthDiaryTag(String tag) {
+    public ImprovementDiaryTag(String tag) {
         this.tag = tag;
     }
 }

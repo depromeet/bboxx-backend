@@ -1,6 +1,5 @@
 package bboxx.domain.emotion.querymodel;
 
-import bboxx.domain.emotion.GrowthDiaryTag;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -9,7 +8,7 @@ import java.util.List;
 
 @ToString
 @Getter
-public class GrowthDiaryView {
+public class ImprovementDiaryView {
     private Long id;
     private String title;
     private String content;

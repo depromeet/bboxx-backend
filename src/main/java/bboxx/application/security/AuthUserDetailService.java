@@ -46,10 +46,12 @@ public class AuthUserDetailService implements UserDetailsService {
 
     private boolean isSkip() {
         boolean skip = false;
-        for (String profile : environment.getActiveProfiles()) {
-            if (profile.equals("local") || profile.equals("dev")) {
-                skip = true;
-                break;
+        if (environment != null) {
+            for (String profile : environment.getActiveProfiles()) {
+                if (profile.equals("local") || profile.equals("dev")) {
+                    skip = true;
+                    break;
+                }
             }
         }
         return skip;

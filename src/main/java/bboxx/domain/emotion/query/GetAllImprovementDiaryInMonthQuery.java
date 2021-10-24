@@ -9,7 +9,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class GetAllGrowthDiaryInMonthQuery {
+public class GetAllImprovementDiaryInMonthQuery {
     Long memberId;
     int year;
     int month;
