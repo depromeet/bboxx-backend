@@ -24,7 +24,7 @@ public class GrowthDiaryTag {
     @Column(name = "growth_diary_id")
     private Long growthDiaryId;
 
-    protected GrowthDiaryTag() {
+    public GrowthDiaryTag() {
 
     }
 
