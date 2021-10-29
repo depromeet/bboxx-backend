@@ -10,10 +10,9 @@ import bboxx.domain.notification.command.SendNotificationCommand;
 import bboxx.domain.notification.commandmodel.NotificationRepository;
 import bboxx.domain.notification.commandmodel.PushNotifier;
 import bboxx.domain.notification.commandmodel.PushTokenRepository;
-import bboxx.infrastructure.repository.JpaEmotionRepository;
+import bboxx.infrastructure.repository.JpaEmotionDiaryRepository;
 import bboxx.infrastructure.translator.SimpleTranslator;
 import com.github.javafaker.Faker;
-import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,7 +40,7 @@ public class SendNotificationCommandHandlerTest {
     private NotificationRepository notificationRepository;
 
     @Mock
-    private JpaEmotionRepository emotionRepository;
+    private JpaEmotionDiaryRepository emotionDiaryRepository;
 
     @Mock
     private PushNotifier pushNotifier;
@@ -61,7 +60,7 @@ public class SendNotificationCommandHandlerTest {
         SendNotificationCommandHandler handler = new SendNotificationCommandHandler(
                 notificationRepository,
                 pushTokenRepository,
-                emotionRepository,
+                emotionDiaryRepository,
                 new SimpleTranslator(),
                 pushNotifier
         );
@@ -83,7 +82,7 @@ public class SendNotificationCommandHandlerTest {
 
         given(pushTokenRepository.findByOwnerId(any()))
                 .willReturn(Optional.of(pushToken));
-        given(emotionRepository.findById(any()))
+        given(emotionDiaryRepository.findById(any()))
                 .willReturn(Optional.of(new EmotionDiary("타이틀", "컨텐츠", receiverId, 1L, "11111", LocalDateTime.now())));
         given(notificationRepository.save(any()))
                 .willReturn(any());
@@ -92,7 +91,7 @@ public class SendNotificationCommandHandlerTest {
         SendNotificationCommandHandler handler = new SendNotificationCommandHandler(
                 notificationRepository,
                 pushTokenRepository,
-                emotionRepository,
+                emotionDiaryRepository,
                 new SimpleTranslator(),
                 pushNotifier
         );

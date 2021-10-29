@@ -34,7 +34,7 @@ public class NotificationReaderTest {
     private EntityManager entityManager;
 
     @Autowired
-    private JpaEmotionRepository emotionDiaryRepository;
+    private JpaEmotionDiaryRepository emotionDiaryRepository;
 
     @Nested
     class findByReceiverId {

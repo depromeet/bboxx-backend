@@ -7,7 +7,7 @@ import bboxx.domain.emotion.command.EmotionStatusInfoCommand;
 import bboxx.domain.emotion.command.FindEmotionDiaryCommandResult;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
-import bboxx.infrastructure.repository.JpaEmotionRepository;
+import bboxx.infrastructure.repository.JpaEmotionDiaryRepository;
 import bboxx.infrastructure.repository.JpaEmotionStatusRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 public class EmotionDiaryService {
 
-    private final JpaEmotionRepository emotionRepository;
+    private final JpaEmotionDiaryRepository emotionDiaryRepository;
 
     private final JpaEmotionStatusRepository emotionStatusRepository;
 
@@ -33,12 +33,12 @@ public class EmotionDiaryService {
 
     @Transactional
     public void createEmotionDiary(CreateEmotionDiaryCommand command) {
-        emotionRepository.save(command.toEntity());
+        emotionDiaryRepository.save(command.toEntity());
     }
 
     public FindEmotionDiaryCommandResult findEmotionDiary(Long id) {
         // 감정 일기
-        EmotionDiary emotionDiary = emotionRepository.findById(id)
+        EmotionDiary emotionDiary = emotionDiaryRepository.findById(id)
                 .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_DIARY_NOT_FOUND_ERROR));
 
         // 감정 상태
@@ -55,6 +55,6 @@ public class EmotionDiaryService {
 
     @Transactional
     public void deleteEmotionDiary(Long id) {
-        emotionRepository.deleteById(id);
+        emotionDiaryRepository.deleteById(id);
     }
 }

@@ -11,24 +11,22 @@ import bboxx.domain.notification.commandmodel.NotificationRepository;
 import bboxx.domain.notification.commandmodel.NotificationTranslator;
 import bboxx.domain.notification.commandmodel.PushNotifier;
 import bboxx.domain.notification.commandmodel.PushTokenRepository;
-import bboxx.infrastructure.repository.JpaEmotionRepository;
+import bboxx.infrastructure.repository.JpaEmotionDiaryRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public class SendNotificationCommandHandler {
 
     private final NotificationRepository notificationRepository;
     private final PushTokenRepository pushTokenRepository;
-    private final JpaEmotionRepository emotionRepository;
+    private final JpaEmotionDiaryRepository emotionDiaryRepository;
     private final NotificationTranslator translator;
     private final PushNotifier pushNotifier;
 
-    public SendNotificationCommandHandler(NotificationRepository notificationRepository, PushTokenRepository pushTokenRepository, JpaEmotionRepository emotionRepository, NotificationTranslator translator, PushNotifier pushNotifier) {
+    public SendNotificationCommandHandler(NotificationRepository notificationRepository, PushTokenRepository pushTokenRepository, JpaEmotionDiaryRepository emotionDiaryRepository, NotificationTranslator translator, PushNotifier pushNotifier) {
         this.notificationRepository = notificationRepository;
         this.pushTokenRepository = pushTokenRepository;
-        this.emotionRepository = emotionRepository;
+        this.emotionDiaryRepository = emotionDiaryRepository;
         this.translator = translator;
         this.pushNotifier = pushNotifier;
     }
@@ -38,7 +36,7 @@ public class SendNotificationCommandHandler {
         PushToken pushToken = pushTokenRepository.findByOwnerId(command.getReceiverId())
                 .orElseThrow(() -> new DomainException(DomainErrorCode.PUSH_TOKEN_NOT_FOUND_ERROR));
 
-        EmotionDiary emotionDiary = emotionRepository.findById(command.getEmotionDiaryId())
+        EmotionDiary emotionDiary = emotionDiaryRepository.findById(command.getEmotionDiaryId())
                 .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_DIARY_NOT_FOUND_ERROR));
         emotionDiary.sendNotification();
 
