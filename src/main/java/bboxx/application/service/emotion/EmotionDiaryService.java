@@ -3,7 +3,7 @@ package bboxx.application.service.emotion;
 import bboxx.domain.emotion.Emotion;
 import bboxx.domain.emotion.EmotionDiary;
 import bboxx.domain.emotion.command.CreateEmotionDiaryCommand;
-import bboxx.domain.emotion.command.EmotionStatusInfoCommand;
+import bboxx.domain.emotion.query.GetEmotionInfoCommand;
 import bboxx.domain.emotion.command.FindEmotionDiaryCommandResult;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
@@ -27,8 +27,8 @@ public class EmotionDiaryService {
     private final JpaEmotionRepository emotionRepository;
 
 
-    public EmotionStatusInfoCommand emotionStatusInfo() {
-        return new EmotionStatusInfoCommand(emotionRepository.findAll());
+    public GetEmotionInfoCommand getEmotionInfo() {
+        return new GetEmotionInfoCommand(emotionRepository.findAll());
     }
 
     @Transactional

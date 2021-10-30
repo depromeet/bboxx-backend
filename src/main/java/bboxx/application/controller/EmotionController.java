@@ -5,7 +5,7 @@ import bboxx.application.controller.dto.response.EmptyJsonResponse;
 import bboxx.application.security.AuthUserDetail;
 import bboxx.application.service.emotion.EmotionDiaryService;
 import bboxx.domain.emotion.command.CreateEmotionDiaryCommand;
-import bboxx.domain.emotion.command.EmotionStatusInfoCommand;
+import bboxx.domain.emotion.query.GetEmotionInfoCommand;
 import bboxx.domain.emotion.command.FindEmotionDiaryCommandResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,8 +24,8 @@ public class EmotionController {
 
     @ApiOperation(value = "감정 일기 등록 전 정보 요청")
     @GetMapping("")
-    public ApiResponse<EmotionStatusInfoCommand> createEmotionDiaryInfo() {
-        return ApiResponse.success(emotionDiaryService.emotionStatusInfo());
+    public ApiResponse<GetEmotionInfoCommand> getEmotionInfo() {
+        return ApiResponse.success(emotionDiaryService.getEmotionInfo());
     }
 
     @ApiOperation(value = "감정 일기 등록 요청")

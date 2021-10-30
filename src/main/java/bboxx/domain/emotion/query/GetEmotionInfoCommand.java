@@ -1,4 +1,4 @@
-package bboxx.domain.emotion.command;
+package bboxx.domain.emotion.query;
 
 import bboxx.domain.emotion.Emotion;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class EmotionStatusInfoCommand {
+public class GetEmotionInfoCommand {
 
     private List<Emotion> emotions;
 
