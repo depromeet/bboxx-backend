@@ -5,6 +5,7 @@ import bboxx.domain.emotion.EmotionDiary;
 import bboxx.domain.emotion.command.CreateEmotionDiaryCommand;
 import bboxx.domain.emotion.query.GetEmotionInfoCommand;
 import bboxx.domain.emotion.command.FindEmotionDiaryCommandResult;
+import bboxx.domain.emotion.querymodel.EmotionDiaryView;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
 import bboxx.infrastructure.repository.JpaEmotionDiaryRepository;
@@ -45,21 +46,11 @@ public class EmotionDiaryService {
         emotionDiaryRepository.save(emotionDiary);
     }
 
-    public FindEmotionDiaryCommandResult findEmotionDiary(Long id) {
-        // 감정 일기
+    public EmotionDiaryView findEmotionDiary(Long id) {
         EmotionDiary emotionDiary = emotionDiaryRepository.findById(id)
                 .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_DIARY_NOT_FOUND_ERROR));
 
-        // 감정 상태
-//        String[] emotionStatusArray = emotionDiary.getEmotionStatuses().replace(" ", "").split(",");
-//        List<Emotion> emotions = new ArrayList<>();
-//        for (String status: emotionStatusArray) {
-//            Long statusNum = Long.valueOf(status);
-//            Emotion emotion = emotionRepository.findById(statusNum)
-//                    .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_NOT_FOUND_ERROR));
-//            emotions.add(emotion);
-//        }
-        return new FindEmotionDiaryCommandResult(emotionDiary);
+        return new EmotionDiaryView(emotionDiary);
     }
 
     @Transactional

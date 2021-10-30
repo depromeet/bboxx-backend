@@ -6,7 +6,7 @@ import bboxx.application.security.AuthUserDetail;
 import bboxx.application.service.emotion.EmotionDiaryService;
 import bboxx.domain.emotion.command.CreateEmotionDiaryCommand;
 import bboxx.domain.emotion.query.GetEmotionInfoCommand;
-import bboxx.domain.emotion.command.FindEmotionDiaryCommandResult;
+import bboxx.domain.emotion.querymodel.EmotionDiaryView;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -30,16 +30,16 @@ public class EmotionController {
 
     @ApiOperation(value = "감정 일기 등록 요청")
     @PostMapping("")
-    public ApiResponse<EmptyJsonResponse> createEmotionDiary(@RequestBody CreateEmotionDiaryCommand command){
-//                                                             @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
-//        userDetail.validateSameUser(command.getMemberId());
+    public ApiResponse<EmptyJsonResponse> createEmotionDiary(@RequestBody CreateEmotionDiaryCommand command,
+                                                             @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
+        userDetail.validateSameUser(command.getMemberId());
         emotionDiaryService.createEmotionDiary(command);
         return ApiResponse.success();
     }
 
     @ApiOperation(value = "감정 일기 조회 요청")
     @GetMapping("/{emotionId}")
-    public ApiResponse<FindEmotionDiaryCommandResult> findEmotionDiary(@PathVariable Long emotionId) {
+    public ApiResponse<EmotionDiaryView> findEmotionDiary(@PathVariable Long emotionId) {
         return ApiResponse.success(emotionDiaryService.findEmotionDiary(emotionId));
     }
 
