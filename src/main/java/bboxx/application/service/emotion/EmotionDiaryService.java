@@ -1,14 +1,14 @@
 package bboxx.application.service.emotion;
 
+import bboxx.domain.emotion.Emotion;
 import bboxx.domain.emotion.EmotionDiary;
-import bboxx.domain.emotion.EmotionStatus;
 import bboxx.domain.emotion.command.CreateEmotionDiaryCommand;
 import bboxx.domain.emotion.command.EmotionStatusInfoCommand;
 import bboxx.domain.emotion.command.FindEmotionDiaryCommandResult;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
 import bboxx.infrastructure.repository.JpaEmotionDiaryRepository;
-import bboxx.infrastructure.repository.JpaEmotionStatusRepository;
+import bboxx.infrastructure.repository.JpaEmotionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,11 +24,11 @@ public class EmotionDiaryService {
 
     private final JpaEmotionDiaryRepository emotionDiaryRepository;
 
-    private final JpaEmotionStatusRepository emotionStatusRepository;
+    private final JpaEmotionRepository emotionRepository;
 
 
     public EmotionStatusInfoCommand emotionStatusInfo() {
-        return new EmotionStatusInfoCommand(emotionStatusRepository.findAll());
+        return new EmotionStatusInfoCommand(emotionRepository.findAll());
     }
 
     @Transactional
@@ -43,14 +43,14 @@ public class EmotionDiaryService {
 
         // 감정 상태
         String[] emotionStatusArray = emotionDiary.getEmotionStatuses().replace(" ", "").split(",");
-        List<EmotionStatus> emotionStatuses = new ArrayList<>();
+        List<Emotion> emotions = new ArrayList<>();
         for (String status: emotionStatusArray) {
             Long statusNum = Long.valueOf(status);
-            EmotionStatus emotionStatus = emotionStatusRepository.findById(statusNum)
+            Emotion emotion = emotionRepository.findById(statusNum)
                     .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_STATUS_NOT_FOUND_ERROR));
-            emotionStatuses.add(emotionStatus);
+            emotions.add(emotion);
         }
-        return new FindEmotionDiaryCommandResult(emotionDiary, emotionStatuses);
+        return new FindEmotionDiaryCommandResult(emotionDiary, emotions);
     }
 
     @Transactional
