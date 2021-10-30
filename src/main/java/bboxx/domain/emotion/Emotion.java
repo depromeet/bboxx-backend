@@ -9,7 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class EmotionStatus {
+public class Emotion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
