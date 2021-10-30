@@ -12,6 +12,6 @@ import java.util.List;
 public class FindEmotionDiaryCommandResult {
 
     private EmotionDiary emotionDiary;
-    private List<Emotion> emotions;
+//    private List<Emotion> emotions;
 
 }

@@ -3,6 +3,8 @@ package bboxx.domain.emotion.command;
 import bboxx.domain.emotion.EmotionDiary;
 import lombok.*;
 
+import java.util.List;
+
 @Builder
 @Getter
 @Setter
@@ -18,17 +20,6 @@ public class CreateEmotionDiaryCommand {
 
     private Long categoryId;
 
-    private String emotionStatuses;
-
-    public EmotionDiary toEntity() {
-        return EmotionDiary.builder()
-                .title(title)
-                .content(content)
-                .memberId(memberId)
-                .categoryId(categoryId)
-                .emotionStatuses(emotionStatuses)
-                .isNotiSent(false)
-                .build();
-    }
+    private List<Long> emotionStatusList;
 
 }

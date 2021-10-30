@@ -30,9 +30,9 @@ public class EmotionController {
 
     @ApiOperation(value = "감정 일기 등록 요청")
     @PostMapping("")
-    public ApiResponse<EmptyJsonResponse> createEmotionDiary(@RequestBody CreateEmotionDiaryCommand command,
-                                                             @ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
-        userDetail.validateSameUser(command.getMemberId());
+    public ApiResponse<EmptyJsonResponse> createEmotionDiary(@RequestBody CreateEmotionDiaryCommand command){
+//                                                             @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
+//        userDetail.validateSameUser(command.getMemberId());
         emotionDiaryService.createEmotionDiary(command);
         return ApiResponse.success();
     }
