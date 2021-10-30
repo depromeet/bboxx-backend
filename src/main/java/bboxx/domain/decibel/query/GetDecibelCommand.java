@@ -1,11 +1,11 @@
-package bboxx.domain.decibel.command;
+package bboxx.domain.decibel.query;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class FindDecibelCommandResult {
+public class GetDecibelCommand {
 
     private Long decibel;
 

@@ -5,7 +5,7 @@ import bboxx.application.security.AuthUserDetail;
 import bboxx.application.service.decibel.DecibelService;
 import bboxx.domain.decibel.command.CreateDecibelCommand;
 import bboxx.domain.decibel.command.CreateDecibelCommandResult;
-import bboxx.domain.decibel.command.FindDecibelCommandResult;
+import bboxx.domain.decibel.query.GetDecibelCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class DecibelController {
 
     @ApiOperation(value = "특정 데시벨 기록 정보 요청")
     @GetMapping("/{decibelId}")
-    public ApiResponse<FindDecibelCommandResult> findDecibel(@PathVariable Long decibelId) {
+    public ApiResponse<GetDecibelCommand> findDecibel(@PathVariable Long decibelId) {
         return ApiResponse.success(decibelService.findDecibel(decibelId));
     }
 }

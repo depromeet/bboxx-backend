@@ -4,7 +4,6 @@ import bboxx.domain.emotion.Emotion;
 import bboxx.domain.emotion.EmotionDiary;
 import bboxx.domain.emotion.command.CreateEmotionDiaryCommand;
 import bboxx.domain.emotion.query.GetEmotionInfoCommand;
-import bboxx.domain.emotion.command.FindEmotionDiaryCommandResult;
 import bboxx.domain.emotion.querymodel.EmotionDiaryView;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
