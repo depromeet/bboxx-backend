@@ -33,7 +33,16 @@ public class EmotionDiaryService {
 
     @Transactional
     public void createEmotionDiary(CreateEmotionDiaryCommand command) {
-        emotionDiaryRepository.save(command.toEntity());
+        List<Emotion> emotionList = new ArrayList<>();
+        for(Long emotionStatusId : command.getEmotionStatusList()) {
+            log.info(String.valueOf(emotionStatusId));
+            Emotion emotion = emotionRepository.findById(emotionStatusId)
+                    .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_NOT_FOUND_ERROR));
+            emotionList.add(emotion);
+        }
+
+        EmotionDiary emotionDiary = new EmotionDiary(command.getTitle(), command.getContent(), command.getMemberId(), command.getCategoryId(), emotionList);
+        emotionDiaryRepository.save(emotionDiary);
     }
 
     public FindEmotionDiaryCommandResult findEmotionDiary(Long id) {
@@ -42,15 +51,15 @@ public class EmotionDiaryService {
                 .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_DIARY_NOT_FOUND_ERROR));
 
         // 감정 상태
-        String[] emotionStatusArray = emotionDiary.getEmotionStatuses().replace(" ", "").split(",");
-        List<Emotion> emotions = new ArrayList<>();
-        for (String status: emotionStatusArray) {
-            Long statusNum = Long.valueOf(status);
-            Emotion emotion = emotionRepository.findById(statusNum)
-                    .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_STATUS_NOT_FOUND_ERROR));
-            emotions.add(emotion);
-        }
-        return new FindEmotionDiaryCommandResult(emotionDiary, emotions);
+//        String[] emotionStatusArray = emotionDiary.getEmotionStatuses().replace(" ", "").split(",");
+//        List<Emotion> emotions = new ArrayList<>();
+//        for (String status: emotionStatusArray) {
+//            Long statusNum = Long.valueOf(status);
+//            Emotion emotion = emotionRepository.findById(statusNum)
+//                    .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_NOT_FOUND_ERROR));
+//            emotions.add(emotion);
+//        }
+        return new FindEmotionDiaryCommandResult(emotionDiary);
     }
 
     @Transactional

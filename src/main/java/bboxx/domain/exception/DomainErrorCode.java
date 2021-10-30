@@ -12,7 +12,7 @@ public enum DomainErrorCode {
     PUSH_TOKEN_NOT_FOUND_ERROR(400, "BD006", "not found push token"),
     DECIBEL_NOT_FOUND_ERROR(400, "BD007", "not found decibel"),
     EMOTION_DIARY_NOT_FOUND_ERROR(400, "BD008", "not fond emotion diary"),
-    EMOTION_STATUS_NOT_FOUND_ERROR(400, "BD009", "not fond emotion status");
+    EMOTION_NOT_FOUND_ERROR(400, "BD009", "not fond emotion");
 
 
     private final int status;
