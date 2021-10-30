@@ -40,6 +40,10 @@ public class EmotionDiary extends BaseTimeEntity {
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ImprovementDiary> improvementDiaries;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "es_emotion_diary_id")
+    private List<EmotionStatus> emotionStatusList;
+
     public EmotionDiary(String title, String content, Long memberId, Long categoryId, String emotionStatuses) {
         this.title = title;
         this.content = content;
