@@ -22,7 +22,7 @@ public class MeController {
 
     private final MemberQueryService memberQueryService;
 
-    @ApiOperation(value = "내 정보를 가져온다.")
+    @ApiOperation(value = "내 정보 가져오기", notes = "특정 사용자의 정보를 반환하는 API 입니다.")
     @GetMapping("/api/v1/me")
     public ApiResponse<MemberView> getMemberById(@ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
         MemberView memberView = memberQueryService.getMemberOne(new GetMemberOneQuery(userDetail.getId()));

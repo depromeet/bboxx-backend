@@ -1,6 +1,7 @@
 package bboxx.application.controller.dto.response;
 
 import bboxx.domain.exception.DomainErrorCode;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,10 @@ public class ApiResponse<T> {
     private static final String SUCCESS_CODE = "0";
     private static final String SUCCESS_MESSAGE = "success";
 
+    @ApiModelProperty(value = "API Response Code", example = "0")
     private String code;
 
+    @ApiModelProperty(value = "API Response Message", example = "success")
     private String message;
 
     private T data;
