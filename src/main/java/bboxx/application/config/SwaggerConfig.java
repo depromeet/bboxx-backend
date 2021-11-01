@@ -42,7 +42,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(this.swaggerInfo())
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("bboxx.application.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(true); //기본으로 세팅되는 200,400,403,404 메시지 표시
@@ -51,7 +51,20 @@ public class SwaggerConfig {
     private ApiInfo swaggerInfo(){
         return new ApiInfoBuilder()
                 .title("BBOXX API")
-                .description("BBOXX API Documentation")
+                .description("BBOXX API Documentation<br/>" +
+                        "<br/>" +
+                        "<b>ERROR CODE</b><br/>" +
+                        "code : BX001, message : internal server error<br/>" +
+                        "code : BD001, message : internal server error<br/>" +
+                        "code : BD002, message : unauthorized error<br/>" +
+                        "code : BD003, message : social user fetch error<br/>" +
+                        "code : BD004, message : member existed<br/>" +
+                        "code : BD005, message : not found member<br/>" +
+                        "code : BD006, message : not found push token<br/>" +
+                        "code : BD007, message : not found decibel<br/>" +
+                        "code : BD008, message : not fond emotion diary<br/>" +
+                        "code : BD009, message : not fond emotion<br/>" +
+                        "")
                 .version("1.0.0")
                 .build();
     }
