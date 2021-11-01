@@ -11,6 +11,8 @@ import bboxx.domain.member.query.GetMemberOneQuery;
 import bboxx.domain.member.commandmodel.NicknameGenerator;
 import bboxx.domain.member.querymodel.MemberView;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,14 +34,17 @@ public class MemberController {
         this.nicknameGenerator = nicknameGenerator;
     }
 
-    @ApiOperation(value = "닉네임 생성 요청한다.")
+    @ApiOperation(value = "닉네임 생성 요청", notes = "랜덤한 닉네임을 생성한 후 반환하는 API 입니다.")
     @PostMapping("/api/v1/generate-member-nickname")
     public ApiResponse<NicknameGenerationApiData> generateMemberNickname() {
         NicknameGenerationApiData data = new NicknameGenerationApiData(nicknameGenerator.generate());
         return ApiResponse.success(data);
     }
 
-    @ApiOperation(value = "특정 회원의 정보를 업데이트 한다")
+    @ApiOperation(value = "특정 회원 정보 업데이트", notes = "특정 회원이 정보 수정을 요청하면, 해당 정보로 수정 후 저장하는 API 입니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "memberId", value = "특정 회원의 고유 id", required = true, dataType = "Long", paramType = "path", defaultValue = "1"),
+    })
     @PutMapping("/api/v1/members/{memberId}")
     public ApiResponse<MemberView> updateMember(@PathVariable Long memberId,
                                                 @RequestBody UpdateMemberRequest request,
@@ -54,7 +59,7 @@ public class MemberController {
         return ApiResponse.success(memberView);
     }
 
-    @ApiOperation(value = "특정 회원의 정보를 가져온다.")
+    @ApiOperation(value = "특정 회원 정보 가져오기", notes = "특정 회원의 정보를 반환하는 API 입니다.")
     @GetMapping("/api/v1/members/{memberId}")
     public ApiResponse<MemberView> getMemberById(@PathVariable Long memberId) {
         MemberView memberView = memberQueryService.getMemberOne(new GetMemberOneQuery(memberId));
