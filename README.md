@@ -18,36 +18,6 @@
 |:---:|:---:|:---:|:---:|
 |권주희|김수빈|박중수|이경석|
 
-## 📁 Project Structure
-```
-bboxx-backend
-├─src
-│ ├─ main
-│ │ ├─ java/bboxx
-│ │ │ ├─ application
-│ │ │ │ ├─ service
-│ │ │ │ ├─ controller
-│ │ │ │ └─ config
-│ │ │ ├─ domain
-│ │ │ ├─ infrastructure
-│ │ │ │ ├─ repository
-│ │ │ │ ├─ kakao
-│ │ │ │ ├─ apple
-│ │ │ │ └─ aws
-│ │ │ └─ BboxxBackendApplication.java // 실행
-│ │ └─ resources
-│ └─ test
-├─ .gitignore
-├─ build.gradle
-└─ README.md
-```
-
-## ✅ Commit Convetion
-**`작성 예정`**
-
-## 🔀 Git-Flow
-**`작성 예정`**
-
 ---
 
 @Copyright [김수빈](https://github.com/Kim-SuBin)
