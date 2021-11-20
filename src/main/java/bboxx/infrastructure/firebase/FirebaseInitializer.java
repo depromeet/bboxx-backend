@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @Component
 @RequiredArgsConstructor
@@ -40,7 +42,7 @@ public class FirebaseInitializer {
                     .fromPkcs8(
                             clientId,
                             clientEmail,
-                            privateKey,
+                            decode(privateKey),
                             privateKeyId,
                             null
                     );
@@ -60,4 +62,9 @@ public class FirebaseInitializer {
         }
     }
 
+    private String decode(String key) {
+        Base64.Decoder decoder = Base64.getDecoder();
+        byte[] privateDecodeBytes = decoder.decode(key);
+        return new String(privateDecodeBytes, StandardCharsets.UTF_8);
+    }
 }

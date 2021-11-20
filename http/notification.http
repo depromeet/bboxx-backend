@@ -25,14 +25,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLp
 ### Post Send notification
 POST http://localhost:8080/api/v1/notifications/send
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIzIiwic3ViIjoiMyIsImlhdCI6MTYzNzM5MzA2MywiZXhwIjoxNjM3OTk3ODYzfQ.m_KKrqkQoQR2lEdIR9qxZlJyru55lKaH0CuFgsAkjkk
 
 {
-  "receiverId": 2,
-  "emotionDiaryId": 1
+  "receiverId": 3,
+  "emotionDiaryId": 3
 }
 
 ### Get notification
-GET http://localhost:8080/api/v1/notifications?receiver_id=2
+GET http://localhost:8080/api/v1/notifications?receiver_id=3
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuyYgeyVhe2VnOyEpO2WpeupnOuhoCIsImlkIjoiMyIsInN1YiI6IjMiLCJpYXQiOjE2MzYyODM4MjksImV4cCI6MTYzNjg4ODYyOX0.BPO8MRP2f2SBBX2jagPoYJbuxNA_enpfWDHW9Kp-3-Y
