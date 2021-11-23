@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.Base64;
 
 @Component
 @RequiredArgsConstructor
@@ -36,11 +37,12 @@ public class FirebaseInitializer {
     @PostConstruct
     public void initialize() {
         try {
+            log.info("Firebase Private key : \n{}", new String(Base64.getDecoder().decode(privateKey)));
             GoogleCredentials credentials = ServiceAccountCredentials
                     .fromPkcs8(
                             clientId,
                             clientEmail,
-                            privateKey,
+                            new String(Base64.getDecoder().decode(privateKey)),
                             privateKeyId,
                             null
                     );
