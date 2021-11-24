@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "providerType": "KAKAO",
-  "authData": "Xm-y7LiADtmFGzICwRKE9cBA7WQlBsWLdv3nBgorDKgAAAF8sXgyGg"
+  "authData": "C5xNYMK8aPyo1rmo1_GGu5GuLFqwFpKWK_c5ngo9dNkAAAF9UeD2mg"
 }
 
 ### SignIn with Google
@@ -22,7 +22,7 @@ Content-Type: application/json
 
 {
   "providerType": "KAKAO",
-  "authData": "Xm-y7LiADtmFGzICwRKE9cBA7WQlBsWLdv3nBgorDKgAAAF8sXgyGg",
+  "authData": "C5xNYMK8aPyo1rmo1_GGu5GuLFqwFpKWK_c5ngo9dNkAAAF9UeD2mg",
   "nickname": "닉네임이다아아!!"
 }
 

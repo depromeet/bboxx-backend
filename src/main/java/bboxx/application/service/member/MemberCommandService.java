@@ -9,6 +9,7 @@ import bboxx.domain.member.commandmodel.MemberCreator;
 import bboxx.domain.member.commandmodel.MemberRepository;
 import bboxx.domain.member.commandmodel.ProviderUserFetcher;
 import bboxx.domain.member.commandmodel.TokenGenerator;
+import bboxx.domain.member.handler.SignInCommandHandler;
 import bboxx.domain.notification.commandmodel.PushTokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import javax.transaction.Transactional;
 @AllArgsConstructor
 public class MemberCommandService {
 
+    private final SignInCommandHandler signInCommandHandler;
     private final ProviderUserFetcher providerUserFetcher;
     private final MemberRepository memberRepository;
     private final MemberCreator memberCreator;
@@ -28,11 +30,7 @@ public class MemberCommandService {
 
     @Transactional
     public SignInCommandResult signIn(SignInCommand command) {
-        SocialProvider socialProvider = this.providerUserFetcher.fetch(command.getProviderType(), command.getAuthData());
-        return this.memberRepository.findByProviderIdAndProviderType(socialProvider.getProviderId(), socialProvider.getProviderType())
-                .map(member -> tokenGenerator.generateToken(Long.toString(member.getId()), member.getNickname()))
-                .map(SignInCommandResult::new)
-                .orElse(new SignInCommandResult());
+        return signInCommandHandler.handle(command);
     }
 
     @Transactional

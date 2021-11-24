@@ -4,7 +4,6 @@ import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
 import bboxx.domain.member.commandmodel.MemberCreator;
 import bboxx.domain.member.commandmodel.MemberRepository;
-import org.h2.api.ErrorCode;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
