@@ -44,7 +44,7 @@ public class SendNotificationCommandHandler {
         Notification notification = new Notification(
                 command.getReceiverId(),
                 command.getEmotionDiaryId(),
-                null,
+                "과거의 너로부터 도착한 일기",
                 message,
                 NotificationState.SENT
         );

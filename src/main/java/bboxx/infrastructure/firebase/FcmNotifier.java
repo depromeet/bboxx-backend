@@ -22,7 +22,7 @@ public class FcmNotifier implements PushNotifier {
             return;
         }
 
-        Message message = makeMessage(token.getToken(), null, notification.getMessage(), Map.of("emotionDiaryId", notification.getId().toString()));
+        Message message = makeMessage(token.getToken(), notification.getTitle(), notification.getMessage(), Map.of("emotionDiaryId", notification.getId().toString()));
         try {
             String response = FirebaseMessaging.getInstance().sendAsync(message).get();
             log.info("success to send push message, response: {} ", response);
