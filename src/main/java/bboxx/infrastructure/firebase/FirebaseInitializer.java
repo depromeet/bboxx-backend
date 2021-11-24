@@ -66,5 +66,6 @@ public class FirebaseInitializer {
         Base64.Decoder decoder = Base64.getDecoder();
         byte[] privateDecodeBytes = decoder.decode(key);
         return new String(privateDecodeBytes, StandardCharsets.UTF_8);
+
     }
 }
