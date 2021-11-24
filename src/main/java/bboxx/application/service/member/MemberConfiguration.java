@@ -4,6 +4,7 @@ import bboxx.domain.member.commandmodel.MemberRepository;
 import bboxx.domain.member.commandmodel.ProviderUserFetcher;
 import bboxx.domain.member.commandmodel.TokenGenerator;
 import bboxx.domain.member.handler.SignInCommandHandler;
+import bboxx.domain.member.handler.SignUpCommandHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +20,10 @@ public class MemberConfiguration {
     @Bean
     public SignInCommandHandler signInCommandHandler() {
         return new SignInCommandHandler(providerUserFetcher, memberRepository, tokenGenerator);
+    }
+
+    @Bean
+    public SignUpCommandHandler signUpCommandHandler() {
+        return new SignUpCommandHandler(providerUserFetcher, memberRepository, tokenGenerator);
     }
 }
