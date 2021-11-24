@@ -4,7 +4,7 @@ import bboxx.application.controller.dto.request.UpdateMemberRequest;
 import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.application.controller.dto.response.NicknameGenerationApiData;
 import bboxx.application.security.AuthUserDetail;
-import bboxx.application.service.member.MemberCommandService;
+import bboxx.application.service.member.MemberCommandFacade;
 import bboxx.application.service.member.MemberQueryService;
 import bboxx.domain.member.command.UpdateMemberCommand;
 import bboxx.domain.member.query.GetMemberOneQuery;
@@ -24,12 +24,12 @@ import springfox.documentation.annotations.ApiIgnore;
 @Slf4j
 public class MemberController {
 
-    private final MemberCommandService memberCommandService;
+    private final MemberCommandFacade memberCommandFacade;
     private final MemberQueryService memberQueryService;
     private final NicknameGenerator nicknameGenerator;
 
-    public MemberController(MemberCommandService memberCommandService, MemberQueryService memberQueryService, NicknameGenerator nicknameGenerator) {
-        this.memberCommandService = memberCommandService;
+    public MemberController(MemberCommandFacade memberCommandService, MemberQueryService memberQueryService, NicknameGenerator nicknameGenerator) {
+        this.memberCommandFacade = memberCommandService;
         this.memberQueryService = memberQueryService;
         this.nicknameGenerator = nicknameGenerator;
     }
@@ -52,7 +52,7 @@ public class MemberController {
 
         userDetail.validateSameUser(memberId);
 
-        memberCommandService.updateMember(new UpdateMemberCommand(memberId, request.getNickname()));
+        memberCommandFacade.updateMember(new UpdateMemberCommand(memberId, request.getNickname()));
 
         MemberView memberView = memberQueryService.getMemberOne(new GetMemberOneQuery(memberId));
 

@@ -35,10 +35,10 @@ class SignUpCommandHandlerTest {
 
         // when
         // then
-        DomainException result = assertThrows(DomainException.class, () -> {
+        DomainException actual = assertThrows(DomainException.class, () -> {
             sut.handle(command);
         });
-        assertThat(result).isEqualTo(new DomainException(DomainErrorCode.MEMBER_EXISTED_ERROR));
+        assertThat(actual).isEqualTo(new DomainException(DomainErrorCode.MEMBER_EXISTED_ERROR));
     }
 
     @Test

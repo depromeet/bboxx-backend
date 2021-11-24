@@ -1,12 +1,9 @@
 package bboxx.application.service.member;
 
-import bboxx.domain.exception.DomainErrorCode;
-import bboxx.domain.exception.DomainException;
-import bboxx.domain.member.Member;
 import bboxx.domain.member.command.*;
-import bboxx.domain.member.commandmodel.MemberRepository;
 import bboxx.domain.member.handler.SignInCommandHandler;
 import bboxx.domain.member.handler.SignUpCommandHandler;
+import bboxx.domain.member.handler.UpdateMemberCommandHandler;
 import bboxx.domain.notification.commandmodel.PushTokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,13 +12,11 @@ import javax.transaction.Transactional;
 
 @Service
 @AllArgsConstructor
-public class MemberCommandService {
+public class MemberCommandFacade {
 
     private final SignInCommandHandler signInCommandHandler;
     private final SignUpCommandHandler signUpCommandHandler;
-
-
-    private final MemberRepository memberRepository;
+    private final UpdateMemberCommandHandler updateMemberCommandHandler;
 
     private final PushTokenRepository pushTokenRepository;
 
@@ -37,12 +32,9 @@ public class MemberCommandService {
 
     @Transactional
     public void updateMember(UpdateMemberCommand command) {
-        Member member = memberRepository.findById(command.getMemberId())
-                .orElseThrow(() -> new DomainException(DomainErrorCode.MEMBER_NOT_FOUND_ERROR));
+        Long memberId = updateMemberCommandHandler.handle(command);
 
-        member.updateInfo(command.getNickname());
-
-        pushTokenRepository.findByOwnerId(command.getMemberId())
+        pushTokenRepository.findByOwnerId(memberId)
                 .ifPresent(token -> token.changeNickname(command.getNickname()));
     }
 }

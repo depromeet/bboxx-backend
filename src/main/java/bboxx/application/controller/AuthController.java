@@ -3,7 +3,7 @@ package bboxx.application.controller;
 import bboxx.application.controller.dto.request.ValidateJwtRequest;
 import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.application.controller.dto.response.ValidateJwtApiDto;
-import bboxx.application.service.member.MemberCommandService;
+import bboxx.application.service.member.MemberCommandFacade;
 import bboxx.domain.member.command.SignInCommand;
 import bboxx.domain.member.command.SignInCommandResult;
 import bboxx.domain.member.command.SignUpCommand;
@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    private final MemberCommandService memberService;
+    private final MemberCommandFacade memberCommandFacade;
     private final JwtProvider jwtProvider;
 
-    public AuthController(MemberCommandService memberCommandService, JwtProvider jwtProvider) {
-        this.memberService = memberCommandService;
+    public AuthController(MemberCommandFacade memberCommandFacade, JwtProvider jwtProvider) {
+        this.memberCommandFacade = memberCommandFacade;
         this.jwtProvider = jwtProvider;
     }
 
@@ -30,13 +30,13 @@ public class AuthController {
     @PostMapping("/signin")
     public ApiResponse<SignInCommandResult> signIn(@RequestBody SignInCommand command) {
         return ApiResponse.
-                success(memberService.signIn(command));
+                success(memberCommandFacade.signIn(command));
     }
 
     @ApiOperation(value = "유저 등록 요청")
     @PostMapping("/signup")
     public ApiResponse<SignUpCommandResult> signUp(@RequestBody SignUpCommand command) {
-        return ApiResponse.success(memberService.signUp(command));
+        return ApiResponse.success(memberCommandFacade.signUp(command));
     }
 
     @ApiOperation(value = "jwt 테스트 api")

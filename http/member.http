@@ -8,7 +8,7 @@ Content-Type: application/json
 ### Put Member info
 PUT http://localhost:8080/api/v1/members/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIyIiwic3ViIjoiMiIsImlhdCI6MTYzNDk2NjI1OCwiZXhwIjoxNjM1NTcxMDU4fQ.R65brdMf5c7gvtilJTD7W7dqPnY4tTh-uHLdAvV9fNs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzNzc2MTI5MCwiZXhwIjoxNjM4MzY2MDkwfQ.80HSCLUUoXElOuVKKf31bOPb0F0n2CBI3uc67JJEzSY
 
 {
   "nickname": "닉네임변경이다아아아아아!!!!"
