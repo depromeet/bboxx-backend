@@ -28,8 +28,8 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzODAwNTkyMSwiZXhwIjoxNjM5NDc3MTUwfQ.c-iUGSGHfFWm7KraD6BC4DCa1LU0CtXPuSSRSGyqRIg
 
 {
-  "receiverId": 3,
-  "emotionDiaryId": 3
+  "receiverId": 1,
+  "emotionDiaryId": 1
 }
 
 ### Get notification

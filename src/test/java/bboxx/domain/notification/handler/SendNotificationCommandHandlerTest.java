@@ -1,18 +1,13 @@
-package bboxx.application.service.notification;
+package bboxx.domain.notification.handler;
 
-import bboxx.domain.emotion.EmotionDiary;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
-import bboxx.domain.notification.Notification;
-import bboxx.domain.notification.PushToken;
-import bboxx.domain.notification.PushTokenState;
+import bboxx.domain.notification.*;
 import bboxx.domain.notification.command.SendNotificationCommand;
 import bboxx.domain.notification.commandmodel.NotificationRepository;
 import bboxx.domain.notification.commandmodel.PushNotifier;
 import bboxx.domain.notification.commandmodel.PushTokenRepository;
-import bboxx.infrastructure.repository.JpaEmotionDiaryRepository;
 import bboxx.infrastructure.translator.SimpleTranslator;
-import com.github.javafaker.Faker;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,12 +15,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -34,43 +27,32 @@ import static org.mockito.Mockito.verify;
 public class SendNotificationCommandHandlerTest {
 
     @Mock
-    private PushTokenRepository pushTokenRepository;
-
-    @Mock
-    private NotificationRepository notificationRepository;
-
-    @Mock
-    private JpaEmotionDiaryRepository emotionDiaryRepository;
-
-    @Mock
     private PushNotifier pushNotifier;
-
-    private final Faker faker = new Faker();
 
     @Test
     public void PushToken_이_없다면_에러를_반환한다() {
         // given
         Long receiverId = 123L;
         Long emotionDiaryId = 123L;
+        String emotionDiaryTitle = "감정일기 타이틀입니다.";
 
-        given(pushTokenRepository.findByOwnerId(any()))
-                .willReturn(Optional.empty());
+        PushTokenRepository pushTokenRepository = new FakePushTokenRepository();
+        NotificationRepository notificationRepository = new FakeNotificationRepository();
 
-        SendNotificationCommand command = new SendNotificationCommand(receiverId, emotionDiaryId);
-        SendNotificationCommandHandler handler = new SendNotificationCommandHandler(
+        SendNotificationCommand command = new SendNotificationCommand(receiverId, emotionDiaryId, emotionDiaryTitle, LocalDateTime.now());
+        SendNotificationCommandHandler sut = new SendNotificationCommandHandler(
                 notificationRepository,
                 pushTokenRepository,
-                emotionDiaryRepository,
                 new SimpleTranslator(),
                 pushNotifier
         );
 
         // when
         // then
-        DomainException result = assertThrows(DomainException.class, () -> {
-            handler.handle(command);
+        DomainException actual = assertThrows(DomainException.class, () -> {
+            sut.handle(command);
         });
-        assertThat(result).isEqualTo(new DomainException(DomainErrorCode.PUSH_TOKEN_NOT_FOUND_ERROR));
+        assertThat(actual).isEqualTo(new DomainException(DomainErrorCode.PUSH_TOKEN_NOT_FOUND_ERROR));
     }
 
     @Test
@@ -78,30 +60,30 @@ public class SendNotificationCommandHandlerTest {
         // given
         Long receiverId = 123L;
         Long emotionDiaryId = 123L;
+        String emotionDiaryTitle = "감정일기 타이틀입니다.";
         PushToken pushToken = new PushToken(11L, receiverId, "닉네임닉네임", "토큰토큰", PushTokenState.ENABLED);
 
-        given(pushTokenRepository.findByOwnerId(any()))
-                .willReturn(Optional.of(pushToken));
-        given(emotionDiaryRepository.findById(any()))
-                .willReturn(Optional.of(new EmotionDiary("타이틀", "컨텐츠", receiverId, 1L, "11111", LocalDateTime.now())));
-        given(notificationRepository.save(any()))
-                .willReturn(any());
+        PushTokenRepository pushTokenRepository = new FakePushTokenRepository();
+        pushTokenRepository.save(pushToken);
 
-        SendNotificationCommand command = new SendNotificationCommand(receiverId, emotionDiaryId);
-        SendNotificationCommandHandler handler = new SendNotificationCommandHandler(
+        NotificationRepository notificationRepository = new FakeNotificationRepository();
+
+        SendNotificationCommand command = new SendNotificationCommand(receiverId, emotionDiaryId, emotionDiaryTitle, LocalDateTime.now());
+
+        SendNotificationCommandHandler sut = new SendNotificationCommandHandler(
                 notificationRepository,
                 pushTokenRepository,
-                emotionDiaryRepository,
                 new SimpleTranslator(),
                 pushNotifier
         );
 
         // when
-        Notification result = handler.handle(command);
+        Notification actual = sut.handle(command);
 
         // then
-        assertThat(result.getEmotionDiaryId()).isEqualTo(receiverId);
-        assertThat(result.getMessage()).isNotNull();
+        assertThat(actual.getEmotionDiaryId()).isEqualTo(receiverId);
+        assertThat(actual.getMessage()).isNotNull();
+        assertThat(actual.getTitle()).isEqualTo("과거의 너로부터 도착한 일기");
         verify(pushNotifier, times(1)).notify(any(), any());
     }
 }

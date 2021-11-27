@@ -2,6 +2,7 @@ package bboxx.application.controller;
 
 import bboxx.application.controller.dto.request.DeregisterPushTokenRequest;
 import bboxx.application.controller.dto.request.RegisterPushTokenRequest;
+import bboxx.application.controller.dto.request.SendNotificationRequest;
 import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.application.controller.dto.response.EmptyJsonResponse;
 import bboxx.application.security.AuthUserDetail;
@@ -35,7 +36,6 @@ public class NotificationController {
 
 
     private final GetPushTokenOneQueryHandler getPushTokenOneQueryHandler;
-    private final SendNotificationCommandHandler sendNotificationCommandHandler;
     private final GetAllNotificationQueryHandler getAllNotificationQueryHandler;
 
     @ApiOperation(value = "push 토큰을 등록한다")
@@ -79,11 +79,11 @@ public class NotificationController {
 
     @ApiOperation(value = "특정 감정일기에 대한 노티를 전송한다.")
     @PostMapping("/notifications/send")
-    public ApiResponse<EmptyJsonResponse> sendNotification(@RequestBody SendNotificationCommand command,
+    public ApiResponse<EmptyJsonResponse> sendNotification(@RequestBody SendNotificationRequest request,
                                                            @ApiIgnore  @AuthenticationPrincipal AuthUserDetail userDetail) {
 
-        userDetail.validateSameUser(command.getReceiverId());
-        sendNotificationCommandHandler.handle(command);
+        userDetail.validateSameUser(request.getReceiverId());
+        commandFacade.sendNotification(request);
         return ApiResponse.success();
     }
 

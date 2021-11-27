@@ -25,15 +25,15 @@ public class DeregisterPushTokenCommandHandlerTest {
 
         FakePushTokenRepository pushTokenRepository = new FakePushTokenRepository();
         DeregisterPushTokenCommand command = new DeregisterPushTokenCommand(ownerId, ownerNickname);
-        DeregisterPushTokenCommandHandler handler = new DeregisterPushTokenCommandHandler(pushTokenRepository);
+        DeregisterPushTokenCommandHandler sut = new DeregisterPushTokenCommandHandler(pushTokenRepository);
 
         // when
-        PushToken result = handler.handle(command);
+        PushToken actual = sut.handle(command);
 
         // then
-        assertThat(result.getToken()).isNull();
-        assertThat(result.getOwnerId()).isEqualTo(ownerId);
-        assertThat(result.getOwnerNickname()).isEqualTo(ownerNickname);
+        assertThat(actual.getToken()).isNull();
+        assertThat(actual.getOwnerId()).isEqualTo(ownerId);
+        assertThat(actual.getOwnerNickname()).isEqualTo(ownerNickname);
     }
 
     @Test
@@ -49,16 +49,16 @@ public class DeregisterPushTokenCommandHandlerTest {
         pushTokenRepository.save(pushToken);
 
         DeregisterPushTokenCommand command = new DeregisterPushTokenCommand(ownerId, ownerNickname);
-        DeregisterPushTokenCommandHandler handler = new DeregisterPushTokenCommandHandler(pushTokenRepository);
+        DeregisterPushTokenCommandHandler sut = new DeregisterPushTokenCommandHandler(pushTokenRepository);
 
         // when
-        PushToken result = handler.handle(command);
+        PushToken actual = sut.handle(command);
 
         // then
-        assertThat(result.getToken()).isNull();
-        assertThat(result.getOwnerId()).isEqualTo(ownerId);
-        assertThat(result.getId()).isEqualTo(pushTokenId);
-        assertThat(result.getOwnerNickname()).isEqualTo(ownerNickname);
-        assertThat(result.getState()).isEqualTo(PushTokenState.DISABLED);
+        assertThat(actual.getToken()).isNull();
+        assertThat(actual.getOwnerId()).isEqualTo(ownerId);
+        assertThat(actual.getId()).isEqualTo(pushTokenId);
+        assertThat(actual.getOwnerNickname()).isEqualTo(ownerNickname);
+        assertThat(actual.getState()).isEqualTo(PushTokenState.DISABLED);
     }
 }

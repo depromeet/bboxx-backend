@@ -2,15 +2,21 @@ package bboxx.application.service.notification;
 
 import bboxx.application.controller.dto.request.DeregisterPushTokenRequest;
 import bboxx.application.controller.dto.request.RegisterPushTokenRequest;
+import bboxx.application.controller.dto.request.SendNotificationRequest;
+import bboxx.domain.emotion.EmotionDiary;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
 import bboxx.domain.member.Member;
 import bboxx.domain.member.commandmodel.MemberRepository;
+import bboxx.domain.notification.Notification;
 import bboxx.domain.notification.PushToken;
 import bboxx.domain.notification.command.DeregisterPushTokenCommand;
 import bboxx.domain.notification.command.RegisterPushTokenCommand;
+import bboxx.domain.notification.command.SendNotificationCommand;
 import bboxx.domain.notification.handler.DeregisterPushTokenCommandHandler;
 import bboxx.domain.notification.handler.RegisterPushTokenCommandHandler;
+import bboxx.domain.notification.handler.SendNotificationCommandHandler;
+import bboxx.infrastructure.repository.JpaEmotionDiaryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +28,10 @@ public class NotificationCommandFacade {
 
     RegisterPushTokenCommandHandler registerPushTokenCommandHandler;
     DeregisterPushTokenCommandHandler deregisterPushTokenCommandHandler;
+    SendNotificationCommandHandler sendNotificationCommandHandler;
 
     private final MemberRepository memberRepository;
+    private final JpaEmotionDiaryRepository emotionDiaryRepository;
 
     @Transactional
     public PushToken registerPushToken(RegisterPushTokenRequest request) {
@@ -47,6 +55,21 @@ public class NotificationCommandFacade {
         return deregisterPushTokenCommandHandler.handle(new DeregisterPushTokenCommand(
                 request.getOwnerId(),
                 member.getNickname()
+        ));
+    }
+
+    @Transactional
+    public Notification sendNotification(SendNotificationRequest request) {
+
+        EmotionDiary emotionDiary = emotionDiaryRepository.findById(request.getEmotionDiaryId())
+                .orElseThrow(() -> new DomainException(DomainErrorCode.EMOTION_DIARY_NOT_FOUND_ERROR));
+        emotionDiary.sendNotification();
+
+        return sendNotificationCommandHandler.handle(new SendNotificationCommand(
+                request.getReceiverId(),
+                request.getEmotionDiaryId(),
+                emotionDiary.getTitle(),
+                emotionDiary.getCreatedAt()
         ));
     }
 }

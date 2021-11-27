@@ -1,17 +1,13 @@
-package bboxx.domain.notification.command;
+package bboxx.application.controller.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class SendNotificationCommand {
+public class SendNotificationRequest {
     Long receiverId;
     Long emotionDiaryId;
-    String emotionDiaryTitle;
-    LocalDateTime emotionCreatedTime;
 }
