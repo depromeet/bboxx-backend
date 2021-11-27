@@ -1,0 +1,84 @@
+name: build and deploy
+
+on:
+  workflow_dispatch:
+
+env:
+  java-version: 11
+  distribute: adopt
+
+  AWS_REGION: ap-northeast-2
+  ECR_REPOSITORY: bboxx
+  ECS_CLUSTER_NAME: bboxx-prod
+  ECS_SERVICE_NAME: bboxx-backend
+  ECS_TASK_NAME: bboxx-backend-task
+  ECS_CONTAINER_NAME: bboxx-backend
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get current time
+      uses: 1466587594/get-current-time@v2
+      id: current-time
+      with:
+        format: YYMMDDHHmm
+        utcOffset: "+09:00"
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up JDK and use cache
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ env.java-version }}
+        distribution: ${{ env.distribute }}
+        cache: gradle
+
+    - name: Grant execute permission for
+      run: chmod +x gradlew
+
+    - name: Build with Gradle
+      run: ./gradlew build -x test
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+        aws-region:  ${{ env.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
+        IMAGE_TAG: v${{ steps.current-time.outputs.formattedTime }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+    - name: Download task definition
+      id: download-task-definition
+      run: |
+        aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_NAME }} --query taskDefinition > task-definition.json
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: ${{ env.ECS_CONTAINER_NAME }}
+        image: ${{ steps.build-image.outputs.image }}
+
+    - name: Deploy AWS ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE_NAME }}
+        cluster: ${{ env.ECS_CLUSTER_NAME }}
+        wait-for-service-stability: true
