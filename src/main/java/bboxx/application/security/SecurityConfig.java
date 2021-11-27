@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs", "/swagger-resources/**",
                         "/swagger-ui.html", "/webjars/**","/swagger/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll() // h2 console
-                .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/api/v1/auth/validate-jwt/**").permitAll()
+                .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/api/v1/auth/validate-jwt/**", "/health").permitAll()
                 .antMatchers("/api/v1/generate-member-nickname").permitAll()
 //                .antMatchers("/api/auth/validate-jwt/**").hasAnyRole("USER") // -> USER_ROLE 설정됨
 //                .anyRequest().permitAll().and() // 임시로 모든 요청을 허용
