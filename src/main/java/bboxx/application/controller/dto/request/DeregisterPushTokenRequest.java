@@ -1,4 +1,4 @@
-package bboxx.domain.notification.command;
+package bboxx.application.controller.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class DeregisterPushTokenCommand {
+public class DeregisterPushTokenRequest {
     Long ownerId;
-    String nickname;
 }

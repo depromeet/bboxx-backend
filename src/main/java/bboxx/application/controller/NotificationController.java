@@ -1,5 +1,6 @@
 package bboxx.application.controller;
 
+import bboxx.application.controller.dto.request.DeregisterPushTokenRequest;
 import bboxx.application.controller.dto.request.RegisterPushTokenRequest;
 import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.application.controller.dto.response.EmptyJsonResponse;
@@ -33,7 +34,6 @@ public class NotificationController {
     private final NotificationCommandFacade commandFacade;
 
 
-    private final DeregisterPushTokenCommandHandler deregisterPushTokenCommandHandler;
     private final GetPushTokenOneQueryHandler getPushTokenOneQueryHandler;
     private final SendNotificationCommandHandler sendNotificationCommandHandler;
     private final GetAllNotificationQueryHandler getAllNotificationQueryHandler;
@@ -50,12 +50,12 @@ public class NotificationController {
 
     @ApiOperation(value = "push 토큰을 등록 해제한다.")
     @PostMapping("/push-tokens/deregister")
-    public ApiResponse<PushToken> deregisterPushToken(@RequestBody DeregisterPushTokenCommand command,
+    public ApiResponse<PushToken> deregisterPushToken(@RequestBody DeregisterPushTokenRequest request,
                                                       @AuthenticationPrincipal AuthUserDetail userDetail) {
 
-        log.info("deregisterPushToken request, authId: {}, ownerId: {}", userDetail.getId(), command.getOwnerId());
-        userDetail.validateSameUser(command.getOwnerId());
-        return ApiResponse.success(deregisterPushTokenCommandHandler.handle(command));
+        log.info("deregisterPushToken request, authId: {}, ownerId: {}", userDetail.getId(), request.getOwnerId());
+        userDetail.validateSameUser(request.getOwnerId());
+        return ApiResponse.success(commandFacade.deregisterPushToken(request));
     }
 
     @ApiOperation(value = "push 토큰정보를 가져온다.")

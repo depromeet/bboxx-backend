@@ -1,6 +1,7 @@
 package bboxx.application.config;
 
 import bboxx.domain.notification.commandmodel.PushTokenRepository;
+import bboxx.domain.notification.handler.DeregisterPushTokenCommandHandler;
 import bboxx.domain.notification.handler.RegisterPushTokenCommandHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -15,5 +16,10 @@ public class NotificationConfiguration {
     @Bean
     public RegisterPushTokenCommandHandler registerPushTokenCommandHandler() {
         return new RegisterPushTokenCommandHandler(pushTokenRepository);
+    }
+
+    @Bean
+    public DeregisterPushTokenCommandHandler deregisterPushTokenCommandHandler() {
+        return new DeregisterPushTokenCommandHandler(pushTokenRepository);
     }
 }
