@@ -15,7 +15,7 @@ env:
   ECS_CONTAINER_NAME: bboxx-backend
 
 jobs:
-  build_and_deploy:
+  prod_build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
