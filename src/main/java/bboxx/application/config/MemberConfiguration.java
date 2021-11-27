@@ -1,4 +1,4 @@
-package bboxx.application.service.member;
+package bboxx.application.config;
 
 import bboxx.domain.member.commandmodel.MemberRepository;
 import bboxx.domain.member.commandmodel.ProviderUserFetcher;

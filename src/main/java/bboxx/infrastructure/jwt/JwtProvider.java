@@ -24,7 +24,7 @@ public class JwtProvider implements TokenGenerator {
     @Value("${bboxx.jwt.secret}")
     private String secretKey;
 
-    private static final long EXPIRATION_TIME = 7 * 24 * 3600 * 1000; // 7 days
+    private static final long EXPIRATION_TIME = 365 * 24 * 3600 * 1000; // 7 days
 
     public String generateToken(String id, String nickname) {
         Date now = new Date(System.currentTimeMillis());

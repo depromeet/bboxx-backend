@@ -1,5 +1,6 @@
 package bboxx.application.controller;
 
+import bboxx.application.controller.dto.request.RegisterPushTokenRequest;
 import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.application.controller.dto.response.EmptyJsonResponse;
 import bboxx.application.security.AuthUserDetail;
@@ -7,7 +8,6 @@ import bboxx.application.service.notification.*;
 import bboxx.domain.notification.NotificationState;
 import bboxx.domain.notification.PushToken;
 import bboxx.domain.notification.command.DeregisterPushTokenCommand;
-import bboxx.domain.notification.command.RegisterPushTokenCommand;
 import bboxx.domain.notification.command.SendNotificationCommand;
 import bboxx.domain.notification.query.GetAllNotificationQuery;
 import bboxx.domain.notification.query.GetPushTokenOneQuery;
@@ -30,7 +30,9 @@ import java.util.List;
 @Slf4j
 public class NotificationController {
 
-    private final RegisterPushTokenCommandHandler registerPushTokenCommandHandler;
+    private final NotificationCommandFacade commandFacade;
+
+
     private final DeregisterPushTokenCommandHandler deregisterPushTokenCommandHandler;
     private final GetPushTokenOneQueryHandler getPushTokenOneQueryHandler;
     private final SendNotificationCommandHandler sendNotificationCommandHandler;
@@ -38,12 +40,12 @@ public class NotificationController {
 
     @ApiOperation(value = "push 토큰을 등록한다")
     @PostMapping("/push-tokens/register")
-    public ApiResponse<PushToken> registerPushToken(@RequestBody RegisterPushTokenCommand command,
+    public ApiResponse<PushToken> registerPushToken(@RequestBody RegisterPushTokenRequest request,
                                                     @AuthenticationPrincipal AuthUserDetail userDetail) {
 
-        log.info("registerPushToken request, authId: {}, ownerId: {}", userDetail.getId(), command.getOwnerId());
-        userDetail.validateSameUser(command.getOwnerId());
-        return ApiResponse.success(registerPushTokenCommandHandler.handle(command));
+        log.info("registerPushToken request, authId: {}, ownerId: {}", userDetail.getId(), request.getOwnerId());
+        userDetail.validateSameUser(request.getOwnerId());
+        return ApiResponse.success(commandFacade.registerPushToken(request));
     }
 
     @ApiOperation(value = "push 토큰을 등록 해제한다.")
