@@ -6,12 +6,13 @@ import bboxx.domain.member.handler.SignUpCommandHandler;
 import bboxx.domain.member.handler.UpdateMemberCommandHandler;
 import bboxx.domain.notification.commandmodel.PushTokenRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MemberCommandFacade {
 
     private final SignInCommandHandler signInCommandHandler;

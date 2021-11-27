@@ -1,0 +1,9 @@
+### create decibel
+POST http://localhost:8080/api/v1/decibel
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzODAwNTkyMSwiZXhwIjoxNjM5NDc3MTUwfQ.c-iUGSGHfFWm7KraD6BC4DCa1LU0CtXPuSSRSGyqRIg
+
+{
+  "decibel": 128,
+  "memberId": 1
+}

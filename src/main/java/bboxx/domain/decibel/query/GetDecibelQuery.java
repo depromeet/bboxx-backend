@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class GetDecibelCommand {
+public class GetDecibelQuery {
     @ApiModelProperty(value = "decibel 수치", example = "77")
     private Long decibel;
 

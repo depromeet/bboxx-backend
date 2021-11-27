@@ -18,17 +18,18 @@ import bboxx.domain.notification.handler.RegisterPushTokenCommandHandler;
 import bboxx.domain.notification.handler.SendNotificationCommandHandler;
 import bboxx.infrastructure.repository.JpaEmotionDiaryRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class NotificationCommandFacade {
 
-    RegisterPushTokenCommandHandler registerPushTokenCommandHandler;
-    DeregisterPushTokenCommandHandler deregisterPushTokenCommandHandler;
-    SendNotificationCommandHandler sendNotificationCommandHandler;
+    private final RegisterPushTokenCommandHandler registerPushTokenCommandHandler;
+    private final DeregisterPushTokenCommandHandler deregisterPushTokenCommandHandler;
+    private final SendNotificationCommandHandler sendNotificationCommandHandler;
 
     private final MemberRepository memberRepository;
     private final JpaEmotionDiaryRepository emotionDiaryRepository;
