@@ -1,4 +1,4 @@
-name: test build and deploy
+name: prod build and deploy
 
 on:
   workflow_dispatch:
@@ -9,13 +9,13 @@ env:
 
   AWS_REGION: ap-northeast-2
   ECR_REPOSITORY: bboxx
-  ECS_CLUSTER_NAME: bboxx-ecs
+  ECS_CLUSTER_NAME: bboxx-prod
   ECS_SERVICE_NAME: bboxx-backend
   ECS_TASK_NAME: bboxx-backend-task
   ECS_CONTAINER_NAME: bboxx-backend
 
 jobs:
-  build_and_deploy:
+  prod_build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
