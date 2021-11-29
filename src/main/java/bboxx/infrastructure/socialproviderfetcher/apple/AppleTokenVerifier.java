@@ -10,6 +10,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.InvalidClaimException;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -25,10 +26,8 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class AppleTokenVerifier {
-
-    @Value("${bboxx.apple.issuer}")
-    String issuer;
 
     @Value("${bboxx.apple.client-id}")
     String clientId;
@@ -44,14 +43,16 @@ public class AppleTokenVerifier {
             PublicKey publicKey = getPublicKey(header);
             return Jwts.parserBuilder()
                     .setSigningKey(publicKey)
-                    .requireIssuer(issuer)
+                    .requireIssuer("https://appleid.apple.com")
                     .requireAudience(clientId)
                     .build()
                     .parseClaimsJws(idToken)
                     .getBody();
         } catch (JsonProcessingException | InvalidKeySpecException | InvalidClaimException | NoSuchAlgorithmException e) {
+            log.error(e.getMessage(), e);
             throw new DomainException(DomainErrorCode.INTERNAL_SERVER_ERROR);
         } catch (ExpiredJwtException e) {
+            log.error(e.getMessage(), e);
             throw new DomainException(DomainErrorCode.UNAUTHORIZED_ERROR);
         }
     }
