@@ -32,13 +32,7 @@ public class EmotionDiary extends BaseTimeEntity {
     private Long categoryId;
 
     @Column
-    private String emotionStatuses;
-
-    @Column
     private Boolean isNotiSent;
-
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<ImprovementDiary> improvementDiaries;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "es_emotion_diary_id")
@@ -46,23 +40,6 @@ public class EmotionDiary extends BaseTimeEntity {
 
     protected EmotionDiary() {
 
-    }
-
-    public EmotionDiary(String title, String content, Long memberId, Long categoryId, String emotionStatuses) {
-        this.title = title;
-        this.content = content;
-        this.memberId = memberId;
-        this.categoryId = categoryId;
-        this.emotionStatuses = emotionStatuses;
-    }
-
-    public EmotionDiary(String title, String content, Long memberId, Long categoryId, String emotionStatuses, LocalDateTime createdAt) {
-        this.title = title;
-        this.content = content;
-        this.memberId = memberId;
-        this.categoryId = categoryId;
-        this.emotionStatuses = emotionStatuses;
-        this.createdAt = createdAt;
     }
 
     public EmotionDiary(String title, String content, Long memberId, Long categoryId, List<Emotion> emotionList) {
@@ -80,10 +57,5 @@ public class EmotionDiary extends BaseTimeEntity {
 
     public void sendNotification() {
         this.isNotiSent = true;
-    }
-
-    public void keepImprovementDiary(String title, String content, Long memberId, List<String> tags) {
-        ImprovementDiary improvementDiary = new ImprovementDiary(title, content, memberId, this.id, tags);
-        this.improvementDiaries.add(improvementDiary);
     }
 }

@@ -3,8 +3,8 @@ package bboxx.application.controller;
 import bboxx.application.controller.dto.response.ApiResponse;
 import bboxx.application.controller.dto.response.EmptyJsonResponse;
 import bboxx.application.security.AuthUserDetail;
+import bboxx.application.service.emotion.EmotionCommandFacade;
 import bboxx.application.service.emotion.GetAllImprovementDiaryInMonthQueryHandler;
-import bboxx.application.service.emotion.KeepImprovementDiaryCommandHandler;
 import bboxx.domain.emotion.command.KeepImprovementDiaryCommand;
 import bboxx.domain.emotion.query.GetAllImprovementDiaryInMonthQuery;
 import bboxx.domain.emotion.querymodel.ImprovementDiaryView;
@@ -27,7 +27,8 @@ import java.util.List;
 @Slf4j
 public class ImprovementDiaryController {
 
-    private final KeepImprovementDiaryCommandHandler keepImprovementDiaryCommandHandler;
+    private final EmotionCommandFacade emotionCommandFacade;
+
     private final GetAllImprovementDiaryInMonthQueryHandler getAllImprovementDiaryInMonthQueryHandler;
 
     @ApiOperation(value = "성장 일기 쓰기", notes = "성장 일기 작성 후 정보를 저장하는 API 입니다.")
@@ -35,7 +36,7 @@ public class ImprovementDiaryController {
     public ApiResponse<EmptyJsonResponse> keepImprovementDiary(@RequestBody KeepImprovementDiaryCommand command,
                                                                @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
         userDetail.validateSameUser(command.getMemberId());
-        keepImprovementDiaryCommandHandler.handle(command);
+        emotionCommandFacade.keep(command);
         return ApiResponse.success();
     }
 
@@ -50,6 +51,7 @@ public class ImprovementDiaryController {
                                                                                  @RequestParam(value = "year") int year,
                                                                                  @RequestParam(value = "month") int month,
                                                                                  @ApiIgnore @AuthenticationPrincipal AuthUserDetail userDetail) {
+
         GetAllImprovementDiaryInMonthQuery query = new GetAllImprovementDiaryInMonthQuery(memberId, year, month);
         log.info("getAllImprovementDiaryInMonth request, authId: {}, query: {}", userDetail.getId(), query);
         userDetail.validateSameUser(memberId);

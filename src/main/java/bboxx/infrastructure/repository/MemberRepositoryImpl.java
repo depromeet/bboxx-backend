@@ -4,7 +4,6 @@ import bboxx.domain.member.Member;
 import bboxx.domain.member.SocialProviderType;
 import bboxx.domain.member.commandmodel.MemberRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 

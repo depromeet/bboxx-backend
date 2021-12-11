@@ -1,0 +1,53 @@
+### get emotions
+GET http://localhost:8080/api/v1/emotions
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzODAwNTkyMSwiZXhwIjoxNjM5NDc3MTUwfQ.c-iUGSGHfFWm7KraD6BC4DCa1LU0CtXPuSSRSGyqRIg
+
+### create emotion diary
+POST http://localhost:8080/api/v1/emotions
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzODAwNTkyMSwiZXhwIjoxNjM5NDc3MTUwfQ.c-iUGSGHfFWm7KraD6BC4DCa1LU0CtXPuSSRSGyqRIg
+
+{
+  "memberId": "1",
+  "title": "힘들어요",
+  "content": "그냥 다 짜증나!!!",
+  "categoryId": 1,
+  "emotionStatusList": [
+    1,2,3,4,5
+  ]
+}
+
+### get specific emotion
+GET http://localhost:8080/api/v1/emotions/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzODAwNTkyMSwiZXhwIjoxNjM5NDc3MTUwfQ.c-iUGSGHfFWm7KraD6BC4DCa1LU0CtXPuSSRSGyqRIg
+
+### delete specific emotion
+DELETE http://localhost:8080/api/v1/emotions/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzODAwNTkyMSwiZXhwIjoxNjM5NDc3MTUwfQ.c-iUGSGHfFWm7KraD6BC4DCa1LU0CtXPuSSRSGyqRIg
+
+
+### keep improvement diary
+POST http://localhost:8080/api/v1/improvement-diaries/keep
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzODAwNTkyMSwiZXhwIjoxNjM5NDc3MTUwfQ.c-iUGSGHfFWm7KraD6BC4DCa1LU0CtXPuSSRSGyqRIg
+
+{
+  "emotionDiaryId": 1,
+  "title": "아 정말 힘들다.",
+  "content": "오늘 너무 힘들어.. 끝나고 중요한 약속이 있었는데 갑자기 일이 생겼다. 미안하다고 하고 허겁지겁 일을 끝내가려는데 갑자기 약속도 취소되고.. 왜이렇게 되는 일이 없냐 ㅠ... 진짜 짜증나",
+  "memberId": "1",
+  "tags": [
+    "나 왜그랬지",
+    "아직도 열받아",
+    "미쳤다",
+    "그만할래"
+  ]
+}
+
+### Get improvement diary
+GET http://localhost:8080/api/v1/improvement-diaries?member_id=1&year=2021&month=12
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJuaWNrbmFtZSI6IuuLieuEpOyehOydtOuLpOyVhOyVhCEhIiwiaWQiOiIxIiwic3ViIjoiMSIsImlhdCI6MTYzODAwNTkyMSwiZXhwIjoxNjM5NDc3MTUwfQ.c-iUGSGHfFWm7KraD6BC4DCa1LU0CtXPuSSRSGyqRIg

@@ -1,6 +1,5 @@
 package bboxx.infrastructure.repository;
 
-import bboxx.domain.emotion.EmotionDiary;
 import bboxx.domain.notification.Notification;
 import bboxx.domain.notification.NotificationState;
 import bboxx.domain.notification.query.GetAllNotificationQuery;
@@ -34,7 +33,7 @@ public class NotificationReaderTest {
     private EntityManager entityManager;
 
     @Autowired
-    private JpaEmotionDiaryRepository emotionDiaryRepository;
+    private EmotionDiaryRepositoryImpl emotionDiaryRepository;
 
     @Nested
     class findByReceiverId {

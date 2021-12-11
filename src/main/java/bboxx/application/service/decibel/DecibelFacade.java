@@ -7,7 +7,6 @@ import bboxx.domain.decibel.handler.CreateDecibelCommandHandler;
 import bboxx.domain.decibel.query.GetDecibelQuery;
 import bboxx.domain.exception.DomainErrorCode;
 import bboxx.domain.exception.DomainException;
-import bboxx.domain.notification.handler.RegisterPushTokenCommandHandler;
 import bboxx.infrastructure.repository.JpaDecibelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -16,8 +16,7 @@ import bboxx.domain.notification.command.SendNotificationCommand;
 import bboxx.domain.notification.handler.DeregisterPushTokenCommandHandler;
 import bboxx.domain.notification.handler.RegisterPushTokenCommandHandler;
 import bboxx.domain.notification.handler.SendNotificationCommandHandler;
-import bboxx.infrastructure.repository.JpaEmotionDiaryRepository;
-import lombok.AllArgsConstructor;
+import bboxx.infrastructure.repository.EmotionDiaryRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class NotificationCommandFacade {
     private final SendNotificationCommandHandler sendNotificationCommandHandler;
 
     private final MemberRepository memberRepository;
-    private final JpaEmotionDiaryRepository emotionDiaryRepository;
+    private final EmotionDiaryRepositoryImpl emotionDiaryRepository;
 
     @Transactional
     public PushToken registerPushToken(RegisterPushTokenRequest request) {
